@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InsureIQ — AI-Powered Insurance Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #080c14;
+  --secondary: #0d1526;
+  --accent: #0a1f3d;
+  --electric: #00c8ff;
+  --electric2: #0080ff;
+  --purple: #a855f7;
+  --green: #00e676;
+  --red: #ff4444;
+  --yellow: #ffbb00;
+  --orange: #ff6b00;
+  --white: #eef2ff;
+  --gray: #7a8ba8;
+  --card-bg: rgba(255,255,255,0.03);
+  --card-border: rgba(0,200,255,0.12);
+  --gradient: linear-gradient(135deg, #00c8ff, #0080ff, #a855f7);
+  --gradient2: linear-gradient(135deg, #ff6b00, #ff4444, #a855f7);
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 16px;
+  --shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--primary);color:var(--white);overflow-x:hidden;line-height:1.6}
+h1,h2,h3,h4{font-family:var(--font-head)}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:9999;padding:14px 40px;background:rgba(8,12,20,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,200,255,0.08);transition:all 0.3s}
+.nav-inner{display:flex;align-items:center;gap:24px;max-width:1300px;margin:auto}
+.logo{font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--white);letter-spacing:-1px;margin-right:auto;cursor:pointer}
+.logo span{color:var(--electric)}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{color:var(--gray);font-size:0.82rem;font-weight:500;padding:7px 14px;border-radius:8px;transition:all 0.2s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--white);background:rgba(0,200,255,0.08)}
+.nav-cta{padding:8px 20px;background:var(--gradient);color:white;border-radius:50px;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s;border:none;cursor:pointer}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,255,0.35)}
+
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 40px 80px;position:relative;overflow:hidden;max-width:1400px;margin:auto;gap:80px}
+.hero-bg{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.18;animation:float 10s ease-in-out infinite}
+.orb1{width:600px;height:600px;background:#00c8ff;top:-150px;right:-100px;animation-delay:0s}
+.orb2{width:500px;height:500px;background:#a855f7;bottom:-150px;left:-100px;animation-delay:4s}
+.orb3{width:350px;height:350px;background:#0080ff;top:50%;left:35%;animation-delay:7s}
+.grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,255,0.03) 1px,transparent 1px);background-size:50px 50px}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-40px) scale(1.06)}}
+
+.hero-content{position:relative;z-index:1;flex:1;max-width:620px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.25);border-radius:50px;padding:8px 16px;font-size:0.75rem;color:var(--electric);margin-bottom:24px;animation:fadeUp 0.6s both}
+.hero-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.6}}
+h1{font-size:clamp(3rem,5.5vw,5rem);font-weight:800;line-height:1.05;margin-bottom:20px;animation:fadeUp 0.6s 0.1s both}
+.grad-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--gray);max-width:500px;margin-bottom:36px;animation:fadeUp 0.6s 0.2s both;line-height:1.75}
+.hero-stats{display:flex;gap:20px;align-items:center;margin-bottom:40px;animation:fadeUp 0.6s 0.3s both}
+.stat span{display:block;font-size:2.2rem;font-weight:800;font-family:var(--font-head);color:var(--electric)}
+.stat small{font-size:0.72rem;color:var(--gray);max-width:100px;display:block}
+.stat-div{width:1px;height:50px;background:rgba(0,200,255,0.15)}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 0.6s 0.4s both}
+.btn-primary{padding:14px 28px;background:var(--gradient);color:white;border-radius:50px;font-weight:700;font-size:0.95rem;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;box-shadow:0 8px 30px rgba(0,200,255,0.25)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,200,255,0.45)}
+.btn-primary.full-w{width:100%;justify-content:center;border-radius:12px}
+.btn-ghost{padding:14px 28px;background:transparent;color:var(--white);border:1px solid rgba(0,200,255,0.2);border-radius:50px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:var(--electric);color:var(--electric)}
+.btn-sec{padding:10px 20px;background:rgba(0,200,255,0.08);border:1px solid var(--card-border);color:var(--electric);border-radius:10px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font-body);font-size:0.85rem}
+.btn-sec:hover{background:rgba(0,200,255,0.15)}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;z-index:1;flex:1;display:flex;justify-content:center;align-items:center;animation:fadeUp 0.7s 0.5s both}
+.hero-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid var(--card-border);border-radius:24px;padding:28px;width:380px;box-shadow:var(--shadow)}
+.policy-hdr{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.policy-icon{font-size:1.8rem}
+.policy-title{font-family:var(--font-head);font-weight:700;font-size:0.95rem}
+.policy-sub{font-size:0.75rem;color:var(--green)}
+.score-badge{margin-left:auto;background:var(--gradient);border-radius:12px;padding:8px 12px;text-align:center;font-weight:800;font-family:var(--font-head);font-size:1.3rem}
+.score-badge small{display:block;font-size:0.62rem;font-weight:400;opacity:0.85}
+.bars{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.bar-row{display:flex;align-items:center;gap:10px;font-size:0.8rem}
+.bar-row span:first-child{width:110px;color:var(--gray);font-size:0.75rem}
+.bar-track{flex:1;background:rgba(255,255,255,0.07);border-radius:50px;height:7px;overflow:hidden}
+.bar-fill{height:100%;border-radius:50px;transition:width 1.5s ease}
+.bar-fill.c{background:var(--green)}
+.bar-fill.y{background:var(--yellow)}
+.bar-fill.r{background:var(--red)}
+.pct{font-size:0.72rem;color:var(--gray);width:30px;text-align:right}
+.exc-pill{background:rgba(255,68,68,0.12);border:1px solid rgba(255,68,68,0.25);color:var(--red);border-radius:8px;padding:10px;text-align:center;font-size:0.82rem;font-weight:600}
+
+/* SECTIONS */
+.container{max-width:1200px;margin:auto;padding:0 40px}
+section{padding:100px 0}
+.section-tag{display:inline-block;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);color:var(--electric);border-radius:50px;padding:5px 14px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+h2{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;margin-bottom:14px}
+.section-sub{color:var(--gray);font-size:1rem;margin-bottom:48px;max-width:600px}
+
+/* PROBLEM */
+.problem-section{background:var(--secondary)}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.prob-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:all 0.3s}
+.prob-card:hover{transform:translateY(-6px);border-color:rgba(0,200,255,0.3)}
+.prob-icon{font-size:2.2rem;margin-bottom:14px}
+.prob-card h3{font-size:1.1rem;margin-bottom:10px}
+.prob-card p{color:var(--gray);font-size:0.87rem}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.feat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:30px 24px;position:relative;transition:all 0.3s;cursor:pointer}
+.feat-card:hover{transform:translateY(-8px)}
+.feat-card.hot{background:linear-gradient(135deg,rgba(0,200,255,0.07),rgba(168,85,247,0.07));border-color:rgba(0,200,255,0.35);box-shadow:0 0 40px rgba(0,200,255,0.08)}
+.feat-badge{position:absolute;top:18px;right:18px;background:var(--gradient);color:white;border-radius:50px;padding:3px 10px;font-size:0.68rem;font-weight:700}
+.feat-num{font-family:var(--font-head);font-size:0.72rem;color:var(--electric);margin-bottom:10px;font-weight:700;letter-spacing:2px}
+.feat-icon{font-size:2.2rem;margin-bottom:14px}
+.feat-card h3{font-size:1.1rem;margin-bottom:14px}
+.feat-card ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:22px}
+.feat-card li{font-size:0.83rem;color:var(--gray);padding-left:16px;position:relative}
+.feat-card li::before{content:'→';position:absolute;left:0;color:var(--electric);font-size:0.72rem}
+.feat-link{color:var(--electric);font-weight:700;font-size:0.85rem;display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;background:none;border:none;cursor:pointer;font-family:var(--font-body)}
+.feat-link:hover{gap:10px}
+
+/* ANALYZER */
+.analyzer-section{background:var(--secondary)}
+.analyzer-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:28px}
+.input-panel{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:22px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{flex:1;padding:9px;border:1px solid var(--card-border);background:transparent;color:var(--gray);border-radius:8px;cursor:pointer;font-family:var(--font-body);font-size:0.82rem;transition:all 0.2s}
+.tab.active{background:rgba(0,200,255,0.1);color:var(--electric);border-color:rgba(0,200,255,0.3)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+textarea{width:100%;min-height:200px;background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:10px;color:var(--white);font-family:var(--font-body);font-size:0.85rem;padding:12px;resize:vertical;outline:none;transition:border 0.2s}
+textarea:focus{border-color:rgba(0,200,255,0.4)}
+.demo-list{display:flex;flex-direction:column;gap:8px}
+.demo-item{display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.2);border:1px solid var(--card-border);border-radius:10px;padding:12px;cursor:pointer;transition:all 0.2s}
+.demo-item:hover{border-color:rgba(0,200,255,0.35);background:rgba(0,200,255,0.04)}
+.demo-item .di{font-size:1.6rem}
+.demo-item strong{display:block;font-size:0.87rem;font-family:var(--font-head)}
+.demo-item small{font-size:0.74rem;color:var(--gray)}
+.output-panel{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:22px;min-height:420px;display:flex;flex-direction:column}
+.placeholder-box{margin:auto;text-align:center;color:var(--gray)}
+.ph-icon{font-size:3rem;margin-bottom:14px}
+.analysis-result{width:100%}
+.donut-row{display:flex;align-items:center;gap:28px;margin-bottom:24px}
+.donut-wrap{position:relative;width:130px;height:130px;flex-shrink:0}
+.donut-wrap canvas{width:130px!important;height:130px!important}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center span{font-size:1.6rem;font-weight:800;font-family:var(--font-head);color:var(--electric)}
+.donut-center small{display:block;font-size:0.65rem;color:var(--gray)}
+.donut-legend{display:flex;flex-direction:column;gap:9px}
+.dl-item{display:flex;align-items:center;gap:9px;font-size:0.82rem}
+.dl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.cov-items{display:flex;flex-direction:column;gap:8px}
+.cov-item{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:9px;padding:10px 12px;font-size:0.82rem}
+.cov-tag{padding:2px 9px;border-radius:50px;font-size:0.68rem;font-weight:700;flex-shrink:0}
+.cov-tag.covered{background:rgba(0,230,118,0.12);color:var(--green)}
+.cov-tag.excluded{background:rgba(255,68,68,0.12);color:var(--red)}
+.cov-tag.conditional{background:rgba(255,187,0,0.12);color:var(--yellow)}
+.loading-dots{display:flex;gap:6px;justify-content:center;padding:20px}
+.loading-dots span{width:8px;height:8px;background:var(--electric);border-radius:50%;animation:bounce 1s infinite}
+.loading-dots span:nth-child(2){animation-delay:0.2s}
+.loading-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
+
+/* HIGHLIGHTER */
+.hl-layout{display:grid;grid-template-columns:1fr 300px;gap:22px}
+.policy-textbox{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);overflow:hidden}
+.text-toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--card-border);background:rgba(0,0,0,0.2)}
+.toolbar-label{font-size:0.82rem;font-weight:600}
+.legend{display:flex;gap:10px}
+.leg{font-size:0.72rem;font-weight:600}
+.leg.covered{color:var(--green)}
+.leg.excluded{color:var(--red)}
+.leg.conditional{color:var(--yellow)}
+.policy-body{padding:22px;font-size:0.85rem;line-height:1.95;color:var(--gray);min-height:280px}
+.hl-covered{background:rgba(0,230,118,0.18);color:#00e676;border-radius:3px;padding:1px 3px}
+.hl-excluded{background:rgba(255,68,68,0.18);color:#ff7070;border-radius:3px;padding:1px 3px;text-decoration:line-through rgba(255,68,68,0.4)}
+.hl-conditional{background:rgba(255,187,0,0.18);color:#ffbb00;border-radius:3px;padding:1px 3px}
+.exc-sidebar{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:18px}
+.exc-header{font-weight:700;font-family:var(--font-head);margin-bottom:14px;font-size:0.95rem}
+.risk-item{display:flex;align-items:flex-start;gap:9px;background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.18);border-radius:9px;padding:10px;margin-bottom:8px;font-size:0.78rem}
+.risk-name{font-weight:600;color:var(--red);font-size:0.8rem}
+.risk-desc{color:var(--gray);font-size:0.73rem;margin-top:2px}
+.risk-score-box{background:linear-gradient(135deg,rgba(255,68,68,0.08),rgba(255,187,0,0.04));border:1px solid rgba(255,68,68,0.18);border-radius:9px;padding:12px;margin-bottom:14px;text-align:center}
+.rs-num{font-size:1.8rem;font-weight:800;font-family:var(--font-head);color:var(--yellow)}
+.rs-label{font-size:0.72rem;color:var(--gray)}
+
+/* SIMULATOR */
+.sim-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:28px}
+.sim-builder{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px}
+.sim-builder h3{font-family:var(--font-head);font-size:1rem;margin-bottom:22px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.75rem;color:var(--gray);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.5px}
+select,input[type=range]{width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:8px;color:var(--white);padding:9px 12px;font-family:var(--font-body);font-size:0.87rem;outline:none;appearance:none;cursor:pointer}
+select:focus{border-color:rgba(0,200,255,0.4)}
+input[type=range]{padding:0;height:5px;background:linear-gradient(to right,var(--electric) 0%,var(--electric) 50%,rgba(255,255,255,0.1) 50%);border:none;border-radius:50px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--electric);border-radius:50%;cursor:pointer;box-shadow:0 0 8px rgba(0,200,255,0.5)}
+.range-val{font-size:0.88rem;font-weight:700;color:var(--electric);margin-top:7px}
+.sim-result-box{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px}
+.payout-box{background:linear-gradient(135deg,rgba(0,200,255,0.07),rgba(0,128,255,0.04));border:1px solid rgba(0,200,255,0.18);border-radius:12px;padding:22px;text-align:center;margin-bottom:22px}
+.payout-label{font-size:0.75rem;color:var(--gray);margin-bottom:7px;text-transform:uppercase;letter-spacing:1px}
+.payout-amount{font-size:2.6rem;font-weight:800;font-family:var(--font-head);color:var(--green)}
+.payout-note{font-size:0.74rem;color:var(--gray);margin-top:5px}
+.breakdown{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.bd-item{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;padding:9px 12px;background:rgba(0,0,0,0.2);border-radius:7px}
+.bd-item .label{color:var(--gray)}
+.bd-item .val{font-weight:700}
+.claim-steps{border-top:1px solid var(--card-border);padding-top:18px}
+.claim-steps h4{font-size:0.85rem;font-family:var(--font-head);margin-bottom:12px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step-item{display:flex;align-items:center;gap:10px;font-size:0.78rem;color:var(--gray)}
+.step-num-s{width:24px;height:24px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;flex-shrink:0;color:white}
+
+/* HOW IT WORKS */
+.steps-row{display:flex;align-items:flex-start;gap:0;margin-top:48px;margin-bottom:48px}
+.step{flex:1;text-align:center;padding:0 18px}
+.step-num{font-size:0.7rem;color:var(--electric);font-weight:800;letter-spacing:2px;margin-bottom:10px}
+.step-icon{font-size:2.2rem;margin-bottom:12px}
+.step h3{font-family:var(--font-head);font-size:1rem;margin-bottom:8px}
+.step p{font-size:0.82rem;color:var(--gray)}
+.step-arrow{font-size:1.3rem;color:var(--electric);opacity:0.4;padding-top:36px}
+.tech-stack{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px 22px}
+.tech-stack>span{font-weight:700;color:var(--gray);font-size:0.82rem}
+.tech-pills{display:flex;gap:7px;flex-wrap:wrap}
+.tech-pills span{background:rgba(0,200,255,0.07);border:1px solid rgba(0,200,255,0.18);color:var(--electric);border-radius:50px;padding:3px 11px;font-size:0.74rem;font-weight:600}
+
+/* IMPACT */
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px}
+.impact-card{border-radius:var(--radius);padding:28px;text-align:center;border:1px solid var(--card-border);transition:transform 0.3s}
+.impact-card:hover{transform:translateY(-6px)}
+.impact-card.pos{background:rgba(0,230,118,0.04);border-color:rgba(0,230,118,0.18)}
+.impact-card.neg{background:rgba(255,68,68,0.04);border-color:rgba(255,68,68,0.18)}
+.impact-num{font-size:2.8rem;font-weight:800;font-family:var(--font-head);margin-bottom:6px}
+.impact-card.pos .impact-num{color:var(--green)}
+.impact-card.neg .impact-num{color:var(--red)}
+.impact-label{font-weight:700;font-family:var(--font-head);margin-bottom:8px;font-size:0.95rem}
+.impact-card p{font-size:0.82rem;color:var(--gray)}
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.adv{background:var(--card-bg);border:1px solid var(--card-border);border-radius:11px;padding:14px;font-size:0.85rem;transition:all 0.2s}
+.adv:hover{border-color:rgba(0,200,255,0.35);color:var(--electric)}
+
+/* TEAM PAGE */
+.team-hero{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:140px 40px 80px;text-align:center;position:relative;overflow:hidden}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:60px;padding:0 40px}
+.team-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;padding:32px 24px;text-align:center;transition:all 0.35s;position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.team-card:hover::before{transform:scaleX(1)}
+.team-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(0,0,0,0.4);border-color:rgba(0,200,255,0.3)}
+.team-avatar{width:100px;height:100px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
+.team-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--gradient);z-index:-1;opacity:0;transition:opacity 0.3s}
+.team-card:hover .team-avatar::after{opacity:1}
+.team-name{font-family:var(--font-head);font-size:1.2rem;font-weight:800;margin-bottom:6px}
+.team-role{font-size:0.78rem;color:var(--electric);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.team-desc{font-size:0.83rem;color:var(--gray);line-height:1.65;margin-bottom:18px}
+.team-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.team-tag{background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.18);color:var(--electric);border-radius:50px;padding:3px 10px;font-size:0.68rem;font-weight:600}
+
+/* ADVISOR PAGE */
+.advisor-hero{padding:140px 40px 60px;text-align:center;position:relative;overflow:hidden}
+.advisor-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1200px;margin:40px auto 0;padding:0 40px}
+.advisor-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;overflow:hidden;transition:all 0.3s}
+.advisor-card:hover{border-color:rgba(0,200,255,0.3);transform:translateY(-4px)}
+.advisor-header{padding:24px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--card-border)}
+.advisor-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.advisor-name{font-family:var(--font-head);font-size:1.05rem;font-weight:700}
+.advisor-specialty{font-size:0.76rem;color:var(--electric);margin-top:3px}
+.advisor-status{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--green)}
+.advisor-status .dot-s{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.advisor-chat{padding:18px}
+.adv-msgs{min-height:200px;max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.adv-msg{padding:10px 14px;border-radius:12px;font-size:0.82rem;line-height:1.55;max-width:90%}
+.adv-msg.bot{background:rgba(255,255,255,0.05);border:1px solid var(--card-border);align-self:flex-start}
+.adv-msg.user{background:rgba(0,200,255,0.12);border:1px solid rgba(0,200,255,0.2);align-self:flex-end;text-align:right}
+.adv-input-row{display:flex;gap:8px}
+.adv-input-row input{flex:1;background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:8px;color:var(--white);padding:9px 12px;font-family:var(--font-body);font-size:0.82rem;outline:none}
+.adv-input-row input:focus{border-color:rgba(0,200,255,0.4)}
+.adv-input-row button{padding:9px 16px;background:var(--gradient);border:none;border-radius:8px;color:white;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.adv-input-row button:hover{transform:translateY(-1px)}
+.adv-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.adv-suggestions button{background:rgba(0,200,255,0.08);border:1px solid var(--card-border);color:var(--electric);border-radius:50px;padding:4px 10px;font-size:0.72rem;cursor:pointer;font-family:var(--font-body);transition:all 0.2s}
+.adv-suggestions button:hover{background:rgba(0,200,255,0.15)}
+
+/* COMPARE PAGE */
+.compare-layout{max-width:1200px;margin:40px auto 0;padding:0 40px}
+.compare-controls{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.compare-controls select{flex:1;min-width:180px}
+.compare-table{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);overflow:hidden;width:100%}
+.ct-head{display:grid;grid-template-columns:220px repeat(3,1fr);background:rgba(0,0,0,0.3);border-bottom:1px solid var(--card-border)}
+.ct-head div{padding:16px;font-family:var(--font-head);font-weight:700;font-size:0.85rem}
+.ct-head .plan-col{text-align:center;border-left:1px solid var(--card-border)}
+.ct-head .plan-col.recommended{color:var(--electric);position:relative}
+.ct-head .plan-col.recommended::after{content:'★ Best';position:absolute;top:4px;right:8px;background:var(--gradient);color:white;border-radius:50px;padding:2px 8px;font-size:0.62rem}
+.ct-row{display:grid;grid-template-columns:220px repeat(3,1fr);border-bottom:1px solid rgba(0,200,255,0.06);transition:background 0.2s}
+.ct-row:hover{background:rgba(0,200,255,0.03)}
+.ct-row div{padding:14px 16px;font-size:0.82rem;display:flex;align-items:center}
+.ct-row .feat-name{color:var(--gray)}
+.ct-row .plan-val{justify-content:center;border-left:1px solid rgba(0,200,255,0.06);text-align:center}
+.check-yes{color:var(--green);font-weight:700}
+.check-no{color:var(--red)}
+.check-partial{color:var(--yellow)}
+
+/* CLAIMS PAGE */
+.claims-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:28px;max-width:1200px;margin:40px auto 0;padding:0 40px}
+.claim-form{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px}
+.claim-form h3{font-family:var(--font-head);font-size:1.1rem;margin-bottom:22px}
+.form-field{margin-bottom:16px}
+.form-field label{display:block;font-size:0.75rem;color:var(--gray);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.5px}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:8px;color:var(--white);padding:10px 12px;font-family:var(--font-body);font-size:0.87rem;outline:none;transition:border 0.2s}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:rgba(0,200,255,0.4)}
+.form-field textarea{min-height:90px;resize:vertical}
+.claims-tracker{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px}
+.claims-tracker h3{font-family:var(--font-head);font-size:1.1rem;margin-bottom:22px}
+.claim-card{background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:12px;padding:16px;margin-bottom:12px}
+.claim-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.claim-id{font-size:0.7rem;color:var(--gray);font-family:monospace}
+.claim-status{padding:3px 10px;border-radius:50px;font-size:0.68rem;font-weight:700}
+.claim-status.approved{background:rgba(0,230,118,0.15);color:var(--green)}
+.claim-status.pending{background:rgba(255,187,0,0.15);color:var(--yellow)}
+.claim-status.processing{background:rgba(0,200,255,0.15);color:var(--electric)}
+.claim-progress{height:4px;background:rgba(255,255,255,0.08);border-radius:50px;overflow:hidden;margin-top:10px}
+.claim-progress-fill{height:100%;border-radius:50px;background:var(--gradient)}
+.claim-detail{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--gray);margin-top:6px}
+.claim-amount{font-weight:700;color:var(--white);font-family:var(--font-head)}
+
+/* GLOSSARY PAGE */
+.glossary-layout{max-width:900px;margin:40px auto 0;padding:0 40px}
+.glossary-search{position:relative;margin-bottom:32px}
+.glossary-search input{width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:12px;color:var(--white);padding:14px 20px 14px 50px;font-family:var(--font-body);font-size:1rem;outline:none;transition:border 0.2s}
+.glossary-search input:focus{border-color:rgba(0,200,255,0.4)}
+.glossary-search .search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:1.2rem;opacity:0.5}
+.gloss-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.gloss-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;transition:all 0.2s}
+.gloss-card:hover{border-color:rgba(0,200,255,0.3);transform:translateY(-3px)}
+.gloss-term{font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--electric);margin-bottom:8px}
+.gloss-def{font-size:0.82rem;color:var(--gray);line-height:1.65}
+.gloss-example{font-size:0.75rem;color:rgba(0,200,255,0.6);margin-top:8px;font-style:italic}
+
+/* CHATBOT */
+.chatbot-bubble{position:fixed;bottom:28px;right:28px;z-index:9998;width:56px;height:56px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 28px rgba(0,200,255,0.4);transition:transform 0.3s}
+.chatbot-bubble:hover{transform:scale(1.1)}
+.chat-icon{font-size:1.4rem}
+.chat-pulse{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:var(--green);border-radius:50%;border:2px solid var(--primary);animation:pulse 2s infinite}
+.chatbot-window{position:fixed;bottom:94px;right:28px;z-index:9997;width:350px;background:var(--secondary);border:1px solid var(--card-border);border-radius:18px;box-shadow:var(--shadow);display:none;flex-direction:column;overflow:hidden;max-height:480px}
+.chatbot-window.open{display:flex;animation:slideUp 0.3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.chat-header{display:flex;align-items:center;gap:10px;padding:14px 18px;background:rgba(0,200,255,0.06);border-bottom:1px solid var(--card-border)}
+.chat-avatar{font-size:1.4rem}
+.chat-header strong{display:block;font-family:var(--font-head);font-size:0.88rem}
+.chat-header small{font-size:0.68rem;color:var(--green)}
+.chat-close{margin-left:auto;background:transparent;border:none;color:var(--gray);font-size:0.95rem;cursor:pointer;transition:color 0.2s}
+.chat-close:hover{color:var(--red)}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.chat-msg.bot{display:flex;justify-content:flex-start}
+.chat-msg.user{display:flex;justify-content:flex-end}
+.msg-bubble{max-width:82%;padding:10px 14px;border-radius:14px;font-size:0.82rem;line-height:1.5}
+.chat-msg.bot .msg-bubble{background:rgba(255,255,255,0.05);border:1px solid var(--card-border)}
+.chat-msg.user .msg-bubble{background:var(--gradient);color:white}
+.chat-sug{display:flex;flex-wrap:wrap;gap:5px}
+.chat-sug button{background:rgba(0,200,255,0.08);border:1px solid var(--card-border);color:var(--electric);border-radius:50px;padding:5px 10px;font-size:0.71rem;cursor:pointer;font-family:var(--font-body);transition:all 0.2s}
+.chat-sug button:hover{background:rgba(0,200,255,0.18)}
+.chat-input-row{display:flex;gap:7px;padding:10px 14px;border-top:1px solid var(--card-border)}
+.chat-input-row input{flex:1;background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:50px;color:var(--white);padding:9px 14px;font-family:var(--font-body);font-size:0.82rem;outline:none}
+.chat-input-row input:focus{border-color:rgba(0,200,255,0.4)}
+.chat-input-row button{width:36px;height:36px;border-radius:50%;background:var(--gradient);border:none;color:white;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.typing{display:flex;gap:3px;align-items:center;padding:10px 14px}
+.typing span{width:5px;height:5px;background:var(--gray);border-radius:50%;animation:bounce 1s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+
+/* AI BADGE */
+.ai-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);border-radius:50px;padding:5px 12px;font-size:0.72rem;color:#c084fc;font-weight:600;margin-bottom:16px}
+
+/* FOOTER */
+.footer{text-align:center;padding:60px 0;border-top:1px solid var(--card-border);background:var(--secondary)}
+.footer-logo{font-family:var(--font-head);font-size:1.8rem;font-weight:800;margin-bottom:10px}
+.footer-logo span{color:var(--electric)}
+.footer p{color:var(--gray);margin-bottom:16px;font-size:0.9rem}
+.footer-team{margin-bottom:14px;font-size:0.87rem}
+.team-label{color:var(--electric);font-weight:700;margin-right:6px}
+.footer-team .member{color:var(--white);font-weight:600}
+.footer small{color:rgba(122,139,168,0.55);font-size:0.75rem}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:20px}
+.footer-links button{background:none;border:none;color:var(--gray);font-size:0.85rem;cursor:pointer;font-family:var(--font-body);transition:color 0.2s}
+.footer-links button:hover{color:var(--electric)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .hero{flex-direction:column;padding:100px 20px 60px}
+  .hero-visual{display:none}
+  .prob-grid,.feat-grid,.impact-grid,.adv-grid,.team-grid,.advisor-grid{grid-template-columns:1fr}
+  .analyzer-layout,.hl-layout,.sim-layout,.claims-layout{grid-template-columns:1fr}
+  .ct-head,.ct-row{grid-template-columns:140px repeat(3,1fr)}
+  .steps-row{flex-direction:column;align-items:center}
+  .step-arrow{transform:rotate(90deg)}
+  .nav-links{display:none}
+  .container{padding:0 20px}
+  section{padding:60px 0}
+  .chatbot-window{right:8px;width:calc(100vw - 16px)}
+  .gloss-grid,.compare-controls{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="hero-bg">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <div class="logo" onclick="showPage('home')">Insure<span>IQ</span></div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+      <li><a href="#" onclick="showPage('analyzer')" id="nav-analyzer">AI Analyzer</a></li>
+      <li><a href="#" onclick="showPage('advisor')" id="nav-advisor">AI Advisors</a></li>
+      <li><a href="#" onclick="showPage('compare')" id="nav-compare">Compare Plans</a></li>
+      <li><a href="#" onclick="showPage('claims')" id="nav-claims">Claims Tracker</a></li>
+      <li><a href="#" onclick="showPage('glossary')" id="nav-glossary">Glossary</a></li>
+      <li><a href="#" onclick="showPage('team')" id="nav-team">Our Team</a></li>
+    </ul>
+    <button class="nav-cta" onclick="showPage('analyzer')">🚀 Try Demo</button>
+  </div>
+</nav>
+
+<!-- ========== HOME PAGE ========== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><div class="dot"></div> 🏆 Finvasia Innovation Hackathon 2026 — Track 2: Insurance</div>
+      <h1>Insurance Made<br><span class="grad-text">Visual, Smart</span><br>& Honest</h1>
+      <p class="hero-sub">Upload your policy. Our AI reads the legal jargon, highlights risks, visualizes coverage, simulates what-if scenarios — and 6 expert AI advisors guide you to the right plan.</p>
+      <div class="hero-stats">
+        <div class="stat"><span>78%</span><small>Customers don't understand their policy</small></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span>60%</span><small>Would buy if explained visually</small></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span>3x</span><small>More likely to lapse without clarity</small></div>
+      </div>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="showPage('analyzer')">🧠 Analyze My Policy</button>
+        <button class="btn-ghost" onclick="showPage('advisor')">💬 Talk to AI Advisor</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="policy-hdr">
+          <div class="policy-icon">📋</div>
+          <div><div class="policy-title">Health Insurance Policy</div><div class="policy-sub">✓ AI Analysis Complete</div></div>
+          <div class="score-badge">68%<small>covered</small></div>
+        </div>
+        <div class="bars">
+          <div class="bar-row"><span>Hospitalization</span><div class="bar-track"><div class="bar-fill c" style="width:90%"></div></div><span class="pct">90%</span></div>
+          <div class="bar-row"><span>Accidents</span><div class="bar-track"><div class="bar-fill c" style="width:82%"></div></div><span class="pct">82%</span></div>
+          <div class="bar-row"><span>Pre-existing</span><div class="bar-track"><div class="bar-fill y" style="width:45%"></div></div><span class="pct">45%</span></div>
+          <div class="bar-row"><span>Mental Health</span><div class="bar-track"><div class="bar-fill r" style="width:12%"></div></div><span class="pct">12%</span></div>
+          <div class="bar-row"><span>Maternity</span><div class="bar-track"><div class="bar-fill y" style="width:38%"></div></div><span class="pct">38%</span></div>
+          <div class="bar-row"><span>Dental</span><div class="bar-track"><div class="bar-fill r" style="width:5%"></div></div><span class="pct">5%</span></div>
+        </div>
+        <div class="exc-pill">⚠️ 5 Critical Gaps Detected by AI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="section-tag">The Problem</div>
+      <h2>Why Insurance <span style="color:var(--red)">Fails</span> Customers</h2>
+      <div class="prob-grid">
+        <div class="prob-card"><div class="prob-icon">📜</div><h3>Overwhelming Jargon</h3><p>Policies filled with complex legal language nobody reads. 40 pages of fine print that confuses experts.</p></div>
+        <div class="prob-card"><div class="prob-icon">🙈</div><h3>Hidden Exclusions</h3><p>What's NOT covered buried in deep fine print clauses. Customers discover gaps only when they file a claim.</p></div>
+        <div class="prob-card"><div class="prob-icon">🔇</div><h3>No Visual Tools</h3><p>Zero interactive tools to understand coverage scenarios. You're left guessing what you actually paid for.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="container">
+      <div class="section-tag">Our Solution</div>
+      <h2>7 Powerful AI Features</h2>
+      <p class="section-sub">Everything you need to truly understand, compare, and choose your insurance</p>
+      <div class="feat-grid">
+        <div class="feat-card" onclick="showPage('analyzer')">
+          <div class="feat-num">01</div><div class="feat-icon">📊</div>
+          <h3>AI Policy Analyzer</h3>
+          <ul><li>Plain-language summaries</li><li>Interactive coverage maps</li><li>Color-coded clause highlighting</li><li>Risk scoring & gap detection</li></ul>
+          <button class="feat-link">Try It →</button>
+        </div>
+        <div class="feat-card hot" onclick="showPage('advisor')">
+          <div class="feat-badge">Most Used</div>
+          <div class="feat-num">02</div><div class="feat-icon">🤖</div>
+          <h3>6 AI Expert Advisors</h3>
+          <ul><li>Health, Motor & Home specialists</li><li>Claim settlement expert</li><li>Tax & premium advisor</li><li>Real-time Claude AI answers</li></ul>
+          <button class="feat-link">Meet Advisors →</button>
+        </div>
+        <div class="feat-card" onclick="showPage('analyzer')">
+          <div class="feat-num">03</div><div class="feat-icon">🚨</div>
+          <h3>Exclusion Highlighter</h3>
+          <ul><li>AI scans for hidden exclusions</li><li>Red-flag alerts on risky gaps</li><li>Industry standard comparison</li><li>Personalized risk scoring</li></ul>
+          <button class="feat-link">Try It →</button>
+        </div>
+        <div class="feat-card" onclick="showPage('analyzer')">
+          <div class="feat-num">04</div><div class="feat-icon">🔮</div>
+          <h3>Scenario Simulator</h3>
+          <ul><li>"What if…" claim scenarios</li><li>Real-time payout calculator</li><li>Step-by-step claim walkthrough</li><li>Out-of-pocket cost estimator</li></ul>
+          <button class="feat-link">Simulate →</button>
+        </div>
+        <div class="feat-card" onclick="showPage('compare')">
+          <div class="feat-num">05</div><div class="feat-icon">⚖️</div>
+          <h3>Plan Comparator</h3>
+          <ul><li>Side-by-side plan comparison</li><li>Best value recommendation</li><li>Feature gap analysis</li><li>Price vs coverage optimizer</li></ul>
+          <button class="feat-link">Compare →</button>
+        </div>
+        <div class="feat-card" onclick="showPage('claims')">
+          <div class="feat-num">06</div><div class="feat-icon">📁</div>
+          <h3>Claims Assistant</h3>
+          <ul><li>Step-by-step claim filing</li><li>Document checklist generator</li><li>Live claim status tracker</li><li>Rejection appeal guidance</li></ul>
+          <button class="feat-link">File Claim →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="section-tag">Process</div>
+      <h2>4 Simple Steps</h2>
+      <div class="steps-row">
+        <div class="step"><div class="step-num">01</div><div class="step-icon">📤</div><h3>Upload Policy</h3><p>Upload PDF or paste text. AI extracts and parses all clauses instantly.</p></div>
+        <div class="step-arrow">→</div>
+        <div class="step"><div class="step-num">02</div><div class="step-icon">🧠</div><h3>AI Analyzes</h3><p>Claude AI identifies covered items, exclusions, conditions & risk areas.</p></div>
+        <div class="step-arrow">→</div>
+        <div class="step"><div class="step-num">03</div><div class="step-icon">📊</div><h3>Visual Dashboard</h3><p>Interactive coverage map generated with smart color-coded charts.</p></div>
+        <div class="step-arrow">→</div>
+        <div class="step"><div class="step-num">04</div><div class="step-icon">🎯</div><h3>Decide Confidently</h3><p>Run scenarios, get payout estimates, chat with AI advisors & choose wisely.</p></div>
+      </div>
+      <div class="tech-stack">
+        <span>Tech Stack:</span>
+        <div class="tech-pills">
+          <span>React.js</span><span>Node.js</span><span>Claude AI</span><span>Python NLP</span><span>BERT</span><span>MongoDB</span><span>AWS Lambda</span><span>FastAPI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section>
+    <div class="container">
+      <div class="section-tag">Impact</div>
+      <h2>Why InsureIQ <span class="grad-text">Wins</span></h2>
+      <div class="impact-grid">
+        <div class="impact-card pos"><div class="impact-num">+35%</div><div class="impact-label">Purchase Conversion</div><p>Visual summaries drive better purchase decisions</p></div>
+        <div class="impact-card neg"><div class="impact-num">-60%</div><div class="impact-label">Support Calls Reduced</div><p>Self-service AI tools empower customers</p></div>
+        <div class="impact-card pos"><div class="impact-num">+50%</div><div class="impact-label">Customer Satisfaction</div><p>Clarity and transparency builds long-term trust</p></div>
+      </div>
+      <h3 style="font-family:var(--font-head);margin-bottom:20px;font-size:1.2rem">Competitive Advantages</h3>
+      <div class="adv-grid">
+        <div class="adv">🎯 AI-powered plain language translation</div>
+        <div class="adv">🗺️ First-of-its-kind visual coverage map</div>
+        <div class="adv">⚡ Real-time "What if" scenario engine</div>
+        <div class="adv">🤖 6 specialized AI insurance advisors</div>
+        <div class="adv">📱 Works with ANY insurance policy type</div>
+        <div class="adv">⚖️ Smart plan comparison & recommendation</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">Insure<span>IQ</span></div>
+      <p>Simple • Visual • Smart Insurance Intelligence for Everyone</p>
+      <div class="footer-links">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('analyzer')">AI Analyzer</button>
+        <button onclick="showPage('advisor')">AI Advisors</button>
+        <button onclick="showPage('compare')">Compare</button>
+        <button onclick="showPage('claims')">Claims</button>
+        <button onclick="showPage('glossary')">Glossary</button>
+        <button onclick="showPage('team')">Team</button>
+      </div>
+      <div class="footer-team">
+        <span class="team-label">Team NeuroSparks:</span>
+        <span class="member">Dapleen Kaur</span> &nbsp;•&nbsp;
+        <span class="member">Pari Arora</span> &nbsp;•&nbsp;
+        <span class="member">Neha Garg</span> &nbsp;•&nbsp;
+        <span class="member">Khwaish Kalra</span>
+      </div>
+      <small>Finvasia Innovation Hackathon 2026 • Track 2: Insurance • Problem Statement 1</small>
+    </div>
+  </footer>
+</div>
+
+<!-- ========== ANALYZER PAGE ========== -->
+<div id="page-analyzer" class="page">
+  <div style="padding:120px 40px 40px">
+    <div class="container">
+      <div class="ai-badge">✨ Powered by Claude AI</div>
+      <div class="section-tag">Feature 1 + 2 + 3</div>
+      <h2>AI Policy <span class="grad-text">Analyzer</span></h2>
+      <p class="section-sub">Paste your policy text or choose a demo — Claude AI will analyze coverage, highlight exclusions, and simulate scenarios in real-time</p>
+    </div>
+  </div>
+
+  <!-- ANALYZER -->
+  <div class="container" style="margin-bottom:60px">
+    <div class="analyzer-layout">
+      <div class="input-panel">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('paste',event)">📝 Paste Text</button>
+          <button class="tab" onclick="switchTab('demo',event)">🎯 Use Demo</button>
+        </div>
+        <div id="tab-paste" class="tab-content active">
+          <textarea id="policy-input" placeholder="Paste your insurance policy text here...&#10;&#10;Example: This policy covers hospitalization expenses up to ₹5,00,000 per annum. Mental health treatment is excluded unless certified by a licensed psychiatrist. Pre-existing conditions have a 2-year waiting period..."></textarea>
+        </div>
+        <div id="tab-demo" class="tab-content">
+          <div class="demo-list">
+            <div class="demo-item" onclick="loadDemo(0)"><div class="di">🏥</div><div><strong>Health Insurance</strong><small>Star Health, ₹5L Cover</small></div></div>
+            <div class="demo-item" onclick="loadDemo(1)"><div class="di">🚗</div><div><strong>Motor Insurance</strong><small>HDFC Ergo, Comprehensive</small></div></div>
+            <div class="demo-item" onclick="loadDemo(2)"><div class="di">🏠</div><div><strong>Home Insurance</strong><small>Bajaj Allianz, Full Cover</small></div></div>
+          </div>
+        </div>
+        <button class="btn-primary full-w" onclick="analyzePolicy()" id="analyze-btn">🧠 Analyze with Claude AI</button>
+      </div>
+      <div class="output-panel" id="output-panel">
+        <div class="placeholder-box" id="output-placeholder">
+          <div class="ph-icon">🤖</div>
+          <p>Claude AI analysis will appear here</p>
+          <small style="color:var(--gray);font-size:0.8rem">Paste policy text or select a demo to begin</small>
+        </div>
+        <div class="analysis-result" id="analysis-result" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTER -->
+  <div style="background:var(--secondary);padding:60px 0" id="highlighter-section">
+    <div class="container">
+      <div class="section-tag">Feature 2</div>
+      <h2>Exclusion <span style="color:var(--red)">Highlighter</span></h2>
+      <p class="section-sub">See exactly what's NOT covered — before you file a claim</p>
+      <div class="hl-layout">
+        <div class="policy-textbox">
+          <div class="text-toolbar">
+            <span class="toolbar-label">Policy Document</span>
+            <div class="legend"><span class="leg covered">✓ Covered</span><span class="leg excluded">✗ Excluded</span><span class="leg conditional">~ Conditional</span></div>
+          </div>
+          <div class="policy-body" id="highlighted-policy"><p>Click <strong>"Load Sample Policy"</strong> to see the exclusion highlighter in action. Our AI color-codes every clause — green for covered, red for excluded, yellow for conditional.</p></div>
+        </div>
+        <div class="exc-sidebar">
+          <div class="exc-header">⚠️ Risk Summary</div>
+          <div id="risk-list"><div style="color:var(--gray);font-size:0.82rem;text-align:center;padding:20px 0">Load a policy to see risk analysis</div></div>
+          <button class="btn-sec" onclick="loadHighlighterDemo()" style="width:100%;margin-top:14px">Load Sample Policy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMULATOR -->
+  <div style="padding:60px 0">
+    <div class="container">
+      <div class="section-tag">Feature 3</div>
+      <h2>Scenario <span class="grad-text">Simulator</span></h2>
+      <p class="section-sub">What happens if…? Get real-time payout estimates & claim guidance</p>
+      <div class="sim-layout">
+        <div class="sim-builder">
+          <h3>Build Your Scenario</h3>
+          <div class="form-group"><label>Coverage Type</label><select id="cov-type" onchange="updateSim()"><option value="health">Health Insurance</option><option value="motor">Motor Insurance</option><option value="home">Home Insurance</option></select></div>
+          <div class="form-group"><label>What Happened?</label><select id="scenario-type" onchange="updateSim()"><option value="hospitalization">Hospitalization</option><option value="accident">Road Accident</option><option value="surgery">Surgery Required</option><option value="mental">Mental Health Treatment</option><option value="preexisting">Pre-existing Condition</option></select></div>
+          <div class="form-group"><label>Claim Amount (₹)</label><input type="range" id="claim-amount" min="10000" max="500000" value="100000" step="10000" oninput="updateSim()"><div class="range-val">₹<span id="claim-display">1,00,000</span></div></div>
+          <div class="form-group"><label>Days Hospitalized</label><input type="range" id="days-hosp" min="1" max="30" value="5" oninput="updateSim()"><div class="range-val"><span id="days-display">5</span> days</div></div>
+          <div class="form-group"><label>Sum Insured</label><select id="sum-insured" onchange="updateSim()"><option value="300000">₹3,00,000</option><option value="500000" selected>₹5,00,000</option><option value="1000000">₹10,00,000</option></select></div>
+        </div>
+        <div class="sim-result-box" id="sim-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-logo">Insure<span>IQ</span></div>
+    <div class="footer-team"><span class="team-label">Team NeuroSparks:</span><span class="member">Dapleen Kaur</span> &nbsp;•&nbsp; <span class="member">Pari Arora</span> &nbsp;•&nbsp; <span class="member">Neha Garg</span> &nbsp;•&nbsp; <span class="member">Khwaish Kalra</span></div>
+    <small>Finvasia Innovation Hackathon 2026</small>
+  </div></footer>
+</div>
+
+<!-- ========== ADVISOR PAGE ========== -->
+<div id="page-advisor" class="page">
+  <div class="advisor-hero">
+    <div class="ai-badge">✨ Real Claude AI Integration</div>
+    <div class="section-tag">Feature: AI Expert Advisors</div>
+    <h2>Meet Your <span class="grad-text">Insurance Experts</span></h2>
+    <p style="color:var(--gray);max-width:600px;margin:0 auto">6 specialized AI advisors, each expert in their domain. Ask anything — they give real, actionable advice powered by Claude AI.</p>
+  </div>
+  <div class="advisor-grid" id="advisor-grid"></div>
+  <footer class="footer" style="margin-top:80px"><div class="container">
+    <div class="footer-logo">Insure<span>IQ</span></div>
+    <div class="footer-team"><span class="team-label">Team NeuroSparks:</span><span class="member">Dapleen Kaur</span> &nbsp;•&nbsp; <span class="member">Pari Arora</span> &nbsp;•&nbsp; <span class="member">Neha Garg</span> &nbsp;•&nbsp; <span class="member">Khwaish Kalra</span></div>
+    <small>Finvasia Innovation Hackathon 2026</small>
+  </div></footer>
+</div>
+
+<!-- ========== COMPARE PAGE ========== -->
+<div id="page-compare" class="page">
+  <div style="padding:120px 40px 40px">
+    <div class="container">
+      <div class="section-tag">Feature: Plan Comparator</div>
+      <h2>Compare <span class="grad-text">Insurance Plans</span></h2>
+      <p class="section-sub">Side-by-side comparison with AI-powered recommendations</p>
+    </div>
+  </div>
+  <div class="compare-layout">
+    <div class="compare-controls">
+      <select id="compare-type" onchange="renderComparison()">
+        <option value="health">Health Insurance Plans</option>
+        <option value="motor">Motor Insurance Plans</option>
+        <option value="home">Home Insurance Plans</option>
+      </select>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(0,200,255,0.08);border:1px solid var(--card-border);border-radius:8px;padding:8px 14px;font-size:0.82rem;color:var(--electric)">
+        🤖 AI Recommendation: <strong id="ai-rec">Star Health — Best Value for Families</strong>
+      </div>
+    </div>
+    <div id="comparison-table"></div>
+    <div style="margin-top:24px;background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);border-radius:14px;padding:20px" id="compare-ai-analysis">
+      <div class="ai-badge" style="margin-bottom:12px">✨ AI Analysis</div>
+      <div id="compare-ai-text" style="font-size:0.87rem;color:var(--gray);line-height:1.7"></div>
+    </div>
+  </div>
+  <footer class="footer" style="margin-top:80px"><div class="container">
+    <div class="footer-logo">Insure<span>IQ</span></div>
+    <div class="footer-team"><span class="team-label">Team NeuroSparks:</span><span class="member">Dapleen Kaur</span> &nbsp;•&nbsp; <span class="member">Pari Arora</span> &nbsp;•&nbsp; <span class="member">Neha Garg</span> &nbsp;•&nbsp; <span class="member">Khwaish Kalra</span></div>
+    <small>Finvasia Innovation Hackathon 2026</small>
+  </div></footer>
+</div>
+
+<!-- ========== CLAIMS PAGE ========== -->
+<div id="page-claims" class="page">
+  <div style="padding:120px 40px 40px">
+    <div class="container">
+      <div class="section-tag">Feature: Claims Assistant</div>
+      <h2>Claims <span class="grad-text">Made Simple</span></h2>
+      <p class="section-sub">File claims step-by-step with AI guidance and track your status in real-time</p>
+    </div>
+  </div>
+  <div class="claims-layout">
+    <div class="claim-form">
+      <h3>📝 File a New Claim</h3>
+      <div class="form-field"><label>Policy Type</label><select id="cf-type"><option>Health Insurance</option><option>Motor Insurance</option><option>Home Insurance</option></select></div>
+      <div class="form-field"><label>Policy Number</label><input type="text" placeholder="e.g. SH-2024-001234" id="cf-polnum"></div>
+      <div class="form-field"><label>Incident Date</label><input type="date" id="cf-date"></div>
+      <div class="form-field"><label>Claim Amount (₹)</label><input type="number" placeholder="e.g. 85000" id="cf-amount"></div>
+      <div class="form-field"><label>Describe What Happened</label><textarea placeholder="Briefly describe the incident or medical condition requiring the claim..." id="cf-desc"></textarea></div>
+      <div class="form-field"><label>Hospital / Garage / Location</label><input type="text" placeholder="Name and address" id="cf-location"></div>
+      <button class="btn-primary full-w" onclick="submitClaim()" style="margin-top:8px">📤 Submit Claim with AI Guidance</button>
+      <div id="claim-guidance" style="margin-top:16px"></div>
+    </div>
+    <div class="claims-tracker">
+      <h3>📊 Your Active Claims</h3>
+      <div id="claims-list"></div>
+      <div style="margin-top:20px;background:rgba(0,200,255,0.06);border:1px solid rgba(0,200,255,0.18);border-radius:12px;padding:16px">
+        <div style="font-family:var(--font-head);font-size:0.9rem;margin-bottom:10px">📋 Document Checklist</div>
+        <div id="doc-checklist" style="font-size:0.8rem;color:var(--gray);line-height:2">Select a policy type to see required documents.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer" style="margin-top:80px"><div class="container">
+    <div class="footer-logo">Insure<span>IQ</span></div>
+    <div class="footer-team"><span class="team-label">Team NeuroSparks:</span><span class="member">Dapleen Kaur</span> &nbsp;•&nbsp; <span class="member">Pari Arora</span> &nbsp;•&nbsp; <span class="member">Neha Garg</span> &nbsp;•&nbsp; <span class="member">Khwaish Kalra</span></div>
+    <small>Finvasia Innovation Hackathon 2026</small>
+  </div></footer>
+</div>
+
+<!-- ========== GLOSSARY PAGE ========== -->
+<div id="page-glossary" class="page">
+  <div style="padding:120px 40px 40px">
+    <div class="container" style="max-width:900px">
+      <div class="section-tag">Insurance Glossary</div>
+      <h2>Understand Every <span class="grad-text">Insurance Term</span></h2>
+      <p class="section-sub">30+ terms explained in plain language. No jargon, no confusion.</p>
+      <div class="glossary-search"><span class="search-icon">🔍</span><input type="text" id="gloss-search" placeholder="Search terms... e.g. deductible, copay, NCB" oninput="filterGloss()"></div>
+      <div class="gloss-grid" id="gloss-grid"></div>
+    </div>
+  </div>
+  <footer class="footer" style="margin-top:60px"><div class="container">
+    <div class="footer-logo">Insure<span>IQ</span></div>
+    <div class="footer-team"><span class="team-label">Team NeuroSparks:</span><span class="member">Dapleen Kaur</span> &nbsp;•&nbsp; <span class="member">Pari Arora</span> &nbsp;•&nbsp; <span class="member">Neha Garg</span> &nbsp;•&nbsp; <span class="member">Khwaish Kalra</span></div>
+    <small>Finvasia Innovation Hackathon 2026</small>
+  </div></footer>
+</div>
+
+<!-- ========== TEAM PAGE ========== -->
+<div id="page-team" class="page">
+  <div class="team-hero">
+    <div class="section-tag">The Builders</div>
+    <h2>Meet <span class="grad-text">Team NeuroSparks</span></h2>
+    <p style="color:var(--gray);max-width:560px;margin:14px auto 0">Four passionate builders who turned the complexity of insurance into clarity, visual intelligence, and accessible AI for everyone.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar" style="background:rgba(0,200,255,0.1)">👩‍💻</div>
+      <div class="team-name">Dapleen Kaur</div>
+      <div class="team-role">Lead Developer & AI Engineer</div>
+      <div class="team-desc">Architected the core AI pipeline and Claude API integration. Expert in NLP and insurance policy parsing systems.</div>
+      <div class="team-tags"><span class="team-tag">AI/ML</span><span class="team-tag">React</span><span class="team-tag">Claude API</span><span class="team-tag">Python</span></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:rgba(168,85,247,0.1)">👩‍🎨</div>
+      <div class="team-name">Pari Arora</div>
+      <div class="team-role">UX Designer & Frontend Lead</div>
+      <div class="team-desc">Designed the visual language of InsureIQ — making complex data beautiful, interactive, and instantly understandable.</div>
+      <div class="team-tags"><span class="team-tag">UI/UX</span><span class="team-tag">Figma</span><span class="team-tag">CSS</span><span class="team-tag">Data Viz</span></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:rgba(0,230,118,0.1)">👩‍🔬</div>
+      <div class="team-name">Neha Garg</div>
+      <div class="team-role">Backend Engineer & Data Analyst</div>
+      <div class="team-desc">Built the backend API infrastructure, database schemas, and insurance data pipelines powering the platform.</div>
+      <div class="team-tags"><span class="team-tag">Node.js</span><span class="team-tag">MongoDB</span><span class="team-tag">FastAPI</span><span class="team-tag">AWS</span></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:rgba(255,187,0,0.1)">👩‍💼</div>
+      <div class="team-name">Khwaish Kalra</div>
+      <div class="team-role">Product Strategist & Research Lead</div>
+      <div class="team-desc">Defined the product vision, conducted user research, and built the insurance domain knowledge base powering our AI advisors.</div>
+      <div class="team-tags"><span class="team-tag">Product</span><span class="team-tag">Research</span><span class="team-tag">Strategy</span><span class="team-tag">Insurance Domain</span></div>
+    </div>
+  </div>
+
+  <section style="padding:80px 40px">
+    <div class="container" style="text-align:center">
+      <div class="section-tag">Our Journey</div>
+      <h2 style="margin-bottom:48px">Built with <span class="grad-text">Passion & Purpose</span></h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:900px;margin:0 auto">
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px">
+          <div style="font-size:2rem;font-weight:800;font-family:var(--font-head);color:var(--electric);margin-bottom:6px">72hrs</div>
+          <div style="font-size:0.8rem;color:var(--gray)">Built in 72-hour hackathon sprint</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px">
+          <div style="font-size:2rem;font-weight:800;font-family:var(--font-head);color:var(--purple);margin-bottom:6px">7+</div>
+          <div style="font-size:0.8rem;color:var(--gray)">Full pages & features built</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px">
+          <div style="font-size:2rem;font-weight:800;font-family:var(--font-head);color:var(--green);margin-bottom:6px">6</div>
+          <div style="font-size:0.8rem;color:var(--gray)">Specialized AI advisors integrated</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px">
+          <div style="font-size:2rem;font-weight:800;font-family:var(--font-head);color:var(--yellow);margin-bottom:6px">∞</div>
+          <div style="font-size:0.8rem;color:var(--gray)">Policies that can be analyzed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-logo">Insure<span>IQ</span></div>
+    <p>Simple • Visual • Smart Insurance for Everyone</p>
+    <div class="footer-team"><span class="team-label">Team NeuroSparks:</span><span class="member">Dapleen Kaur</span> &nbsp;•&nbsp; <span class="member">Pari Arora</span> &nbsp;•&nbsp; <span class="member">Neha Garg</span> &nbsp;•&nbsp; <span class="member">Khwaish Kalra</span></div>
+    <small>Finvasia Innovation Hackathon 2026 • Track 2: Insurance • Problem Statement 1</small>
+  </div></footer>
+</div>
+
+<!-- GLOBAL CHATBOT -->
+<div class="chatbot-bubble" onclick="toggleChat()">
+  <div class="chat-icon">💬</div>
+  <div class="chat-pulse"></div>
+</div>
+<div class="chatbot-window" id="chatbot-window">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div><strong>InsureIQ Assistant</strong><small>Claude AI • Always Online</small></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chat-messages">
+    <div class="chat-msg bot"><div class="msg-bubble">Hi! 👋 I'm your InsureIQ AI Assistant powered by Claude. Ask me anything about insurance — I'll give you real, accurate answers!</div></div>
+    <div class="chat-sug">
+      <button onclick="askBot('What is a deductible?')">What is deductible?</button>
+      <button onclick="askBot('What does copay mean?')">What is copay?</button>
+      <button onclick="askBot('How do I file a claim?')">How to file claim?</button>
+      <button onclick="askBot('What is NCB in insurance?')">What is NCB?</button>
+    </div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Ask about your policy..." onkeypress="if(event.key==='Enter')sendChat()">
+    <button onclick="sendChat()">↑</button>
+  </div>
+</div>
+
+<script src="jsmain.js"></script>
+</body>
+</html>

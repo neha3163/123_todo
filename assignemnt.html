@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>assignment 3 :event and logical storage</h2>
+    <input type="text" id = "inputbox" placeholder="
+    enter value">
+    <button id ="loadbtn">save</button>
+    <button id="loadbtn">load</button>
+
+    <p>output: <span id="output"></span></p>
+    <button id = "incbtn">increment</button>
+    <button id = "resetbtn">reset</button>
+    
+    <script>
+      const input = document.getElementById("inputfield");
+      const savebtn=document.getElementById("savebtn");
+      const loadbtn=doument.getElementById("loadbtn");
+      const output=documenmt.getElementById("output");
+      
+      const countvalue= document.getElementById("countvalue");
+      const incrementbtn = document.getElementById("increment");
+      const resetBtn = document.getElementById("resetBtn");
+
+const clearBtn = document.getElementById("clearBtn");
+
+// ----------------------
+// TASK 6 + 9 (Counter Init)
+// ----------------------
+
+let count = localStorage.getItem("count");
+
+if (count === null) {
+  count = 0;
+} else {
+  count = Number(count);
+}
+
+countValue.innerText = count;
+
+// ----------------------
+// TASK 1 + 2 (Save Input)
+// ----------------------
+
+savebtn.addEventListener("click", () => {
+  let value = input.Value;
+
+  localStorage.setItem("inputData", value);
+
+  // TASK 11 (backupData)
+  localStorage.setItem("backupData", value);
+
+  alert("Data Saved!");
+});
+
+// ----------------------
+// TASK 3 + 4 (Load Input)
+// ----------------------
+
+loadBtn.addEventListener("click", () => {
+  let data = localStorage.getItem("inputData");
+
+  output.innerText = data ? data : "No Data Found";
+});
+
+// ----------------------
+// TASK 5 (Show after refresh)
+// ----------------------
+
+window.addEventListener("load", () => {
+  let data = localStorage.getItem("inputData");
+
+  if (data) {
+    output.innerText = data;
+  }
+
+  // backupData show (Task 11)
+  let backup = localStorage.getItem("backupData");
+  if (backup) {
+    console.log("Backup Data:", backup);
+  }
+});
+
+// ----------------------
+// TASK 7 + 8 (Increment Counter)
+// ----------------------
+
+incrementBtn.addEventListener("click", () => {
+  count++;
+  countValue.innerText = count;
+
+  localStorage.setItem("count", count);
+});
+
+// ----------------------
+// TASK 10 (Reset Counter)
+// ----------------------
+
+resetBtn.addEventListener("click", () => {
+  count = 0;
+  countValue.innerText = count;
+
+  localStorage.setItem("count", count);
+});
+
+// ----------------------
+// TASK 12 (Clear specific data)
+
+clearBtn.addEventListener("click", () => {
+  localStorage.removeItem("inputData");
+
+  output.innerText = "";
+}); 
+    </script
+</body>
+</html>

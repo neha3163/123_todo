@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLAMIFY — Luxury Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ── RESET ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Inter', sans-serif;
+  background:#fff;
+  color:#1a0012;
+  overflow-x:hidden;
+}
+
+/* ── VARIABLES ── */
+:root {
+  --pink:   #e8357a;
+  --deep:   #b01257;
+  --light:  #fde8f0;
+  --cream:  #fffbfc;
+  --dark:   #120009;
+  --muted:  #7a4060;
+  --gold:   #c9923a;
+  --border: rgba(232,53,122,0.15);
+  --shadow: 0 8px 32px rgba(232,53,122,0.12);
+}
+
+/* ══════════════════════════════
+   PAGE SYSTEM
+══════════════════════════════ */
+.page { display:none; }
+.page.active {
+  display:block;
+  animation: slideIn 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes slideIn {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══════════════════════════════
+   NAVBAR
+══════════════════════════════ */
+nav {
+  position: fixed; top:0; width:100%; z-index:999;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6%;
+  height: 68px;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: var(--pink);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s;
+}
+.nav-link:hover { color: var(--pink); background: var(--light); }
+.nav-link.active { color: var(--pink); background: var(--light); font-weight: 600; }
+
+.nav-cta {
+  padding: 9px 22px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-left: 8px;
+}
+.nav-cta:hover { background: var(--deep); transform: translateY(-1px); }
+
+/* ══════════════════════════════
+   HOME PAGE
+══════════════════════════════ */
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 68px 6% 0;
+  background: linear-gradient(135deg, #fff5f8 0%, #fce8f0 50%, #fff0f5 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hbc1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,53,122,0.1), transparent 70%);
+  top: -100px; right: -100px;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+.hbc2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,146,58,0.08), transparent 70%);
+  bottom: 60px; left: 5%;
+  animation: drift 16s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift { to { transform: translate(30px, 40px); } }
+
+.hero-content {
+  flex: 1;
+  position: relative; z-index: 2;
+  max-width: 560px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pink);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+.pulse-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--pink);
+  animation: pulse 1.8s ease infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.6);opacity:0.5;} }
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 6vw, 78px);
+  line-height: 1.1;
+  color: var(--dark);
+  animation: fadeUp 0.8s ease both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--pink);
+}
+.hero h1 span {
+  display: block;
+  font-size: 0.55em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 12px;
+  letter-spacing: 0.3px;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 24px;
+  max-width: 440px;
+  animation: fadeUp 1s ease both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 36px;
+  animation: fadeUp 1.2s ease both;
+}
+
+.btn-filled {
+  padding: 14px 32px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 24px rgba(232,53,122,0.3);
+}
+.btn-filled:hover { background: var(--deep); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(232,53,122,0.35); }
+
+.btn-outline {
+  padding: 14px 32px;
+  background: white;
+  color: var(--pink);
+  border: 1.5px solid var(--pink);
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-outline:hover { background: var(--light); }
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 52px;
+  animation: fadeUp 1.4s ease both;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: var(--pink);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative; z-index: 2;
+  padding: 80px 0 40px;
+  animation: fadeUp 0.9s ease 0.2s both;
+}
+
+.hero-img {
+  width: 400px; height: 500px;
+  object-fit: cover;
+  border-radius: 200px 200px 60px 60px;
+  box-shadow: 0 40px 80px rgba(232,53,122,0.2), 0 0 0 8px white;
+}
+
+.float-pill {
+  position: absolute;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  font-size: 13px;
+}
+.float-pill.f1 { bottom: 100px; left: -20px; animation: bob 4s ease-in-out infinite; }
+.float-pill.f2 { top: 100px; right: -20px; animation: bob 5s ease-in-out infinite 1s; }
+@keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.fp-label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+.fp-val { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--pink); margin-top: 2px; }
+.fp-sub { font-size: 11px; color: #999; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+/* MARQUEE */
+.marquee {
+  background: var(--pink);
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-block;
+  animation: scroll 28s linear infinite;
+}
+.marquee-track span { font-size: 12px; font-weight: 700; color: white; letter-spacing: 2px; margin: 0 28px; }
+@keyframes scroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ══════════════════════════════
+   CATEGORY GRID — REDESIGNED
+══════════════════════════════ */
+.section { padding: 80px 6%; }
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--pink); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 46px);
+  color: var(--dark);
+}
+.section-title em { font-style: italic; color: var(--pink); }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.cat-card {
+  position: relative;
+  height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+}
+.cat-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 28px 60px rgba(232,53,122,0.28);
+}
+.cat-card img {
+  width:100%; height:100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.cat-card:hover img { transform: scale(1.09); }
+
+.cat-overlay {
+  position: absolute; inset:0;
+  background: linear-gradient(to top, rgba(18,0,9,0.88) 0%, rgba(18,0,9,0.3) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 24px;
+  transition: background 0.4s;
+}
+.cat-card:hover .cat-overlay {
+  background: linear-gradient(to top, rgba(176,18,87,0.92) 0%, rgba(18,0,9,0.35) 55%, transparent 100%);
+}
+
+.cat-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  width: fit-content;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.35s 0.05s;
+}
+.cat-card:hover .cat-tag { opacity:1; transform:translateY(0); }
+
+.cat-overlay h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: white;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+.cat-overlay p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+
+.cat-btn {
+  padding: 9px 22px;
+  background: white;
+  color: var(--pink);
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  width: fit-content;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.35s 0.08s;
+  letter-spacing: 0.5px;
+}
+.cat-card:hover .cat-btn { opacity:1; transform:translateY(0); }
+.cat-btn:hover { background: var(--light); }
+
+.cat-num {
+  position: absolute;
+  top: 18px; right: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.4s;
+}
+.cat-card:hover .cat-num { color: rgba(255,255,255,0.2); }
+
+/* BESTSELLER GRID */
+.bs-section { padding: 80px 6%; background: var(--cream); }
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.prod-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.35s;
+  position: relative;
+}
+.prod-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 44px rgba(232,53,122,0.15);
+  border-color: var(--border);
+}
+.prod-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+.badge-new { background: var(--pink); color: white; }
+.badge-hot { background: #ff6b00; color: white; }
+.badge-sale { background: #18a058; color: white; }
+.badge-luxe { background: var(--gold); color: white; }
+
+.prod-img { height: 180px; overflow: hidden; background: #f9f0f4; }
+.prod-img img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; }
+.prod-card:hover .prod-img img { transform: scale(1.07); }
+
+.prod-body { padding: 14px 16px 18px; }
+.prod-cat { font-size: 10px; font-weight: 700; color: var(--pink); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.prod-name { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 3px; line-height: 1.4; }
+.prod-desc { font-size: 11px; color: #999; margin-bottom: 10px; line-height: 1.4; }
+.prod-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.prod-price { font-size: 15px; font-weight: 700; color: var(--pink); }
+.prod-old { font-size: 12px; color: #ccc; text-decoration: line-through; }
+.add-btn {
+  width: 100%;
+  padding: 9px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.add-btn:hover { background: var(--deep); }
+
+/* PROMO BANNER */
+.promo {
+  margin: 0 6% 80px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--dark) 0%, #3d0022 100%);
+  padding: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.promo::before {
+  content: "";
+  position: absolute;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,53,122,0.15), transparent 70%);
+  right: -60px; top: -80px;
+}
+.promo-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px,3vw,40px);
+  color: white;
+  line-height: 1.2;
+}
+.promo-text h2 em { font-style: italic; color: #f9c; }
+.promo-text p { color: rgba(255,255,255,0.55); margin-top: 10px; font-size: 14px; }
+.promo-code {
+  display: inline-block;
+  margin-top: 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffc;
+  letter-spacing: 2px;
+}
+.promo-btn {
+  padding: 14px 36px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;
+  position: relative; z-index:1;
+  box-shadow: 0 8px 24px rgba(232,53,122,0.35);
+}
+.promo-btn:hover { background: #ff5599; transform: scale(1.04); }
+
+/* ══════════════════════════════
+   REVIEWS SECTION
+══════════════════════════════ */
+.reviews-section {
+  padding: 90px 6%;
+  background: linear-gradient(135deg, #fff5f8, #fce8f0);
+  position: relative;
+  overflow: hidden;
+}
+.reviews-section::before {
+  content: '"';
+  font-family: 'Playfair Display', serif;
+  font-size: 400px;
+  color: rgba(232,53,122,0.05);
+  position: absolute;
+  top: -80px; left: 3%;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 8px;
+}
+
+.review-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 28px;
+  border: 1px solid rgba(232,53,122,0.1);
+  box-shadow: 0 6px 28px rgba(232,53,122,0.07);
+  transition: all 0.35s;
+  position: relative;
+}
+.review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(232,53,122,0.15);
+  border-color: rgba(232,53,122,0.25);
+}
+
+.review-quote-icon {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  color: var(--pink);
+  line-height: 0.6;
+  margin-bottom: 18px;
+  display: block;
+  opacity: 0.6;
+}
+
+.review-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 14px;
+}
+.star { color: #f5a623; font-size: 16px; }
+
+.review-text {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 22px;
+  font-style: italic;
+}
+
+.review-divider {
+  height: 1px;
+  background: linear-gradient(to right, var(--pink), transparent);
+  margin-bottom: 18px;
+  opacity: 0.2;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.review-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--light);
+}
+.review-avatar-placeholder {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--deep));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
+}
+.review-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.review-product {
+  font-size: 11px;
+  color: var(--pink);
+  margin-top: 2px;
+  font-weight: 500;
+}
+.review-verified {
+  margin-left: auto;
+  font-size: 10px;
+  color: #18a058;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: #f0fff4;
+  padding: 3px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* REVIEW FEATURED (wide card) */
+.review-card.featured {
+  grid-column: span 1;
+  background: linear-gradient(135deg, var(--dark), #3d0022);
+  border-color: transparent;
+}
+.review-card.featured .review-text { color: rgba(255,255,255,0.75); }
+.review-card.featured .review-name { color: white; }
+.review-card.featured .review-product { color: #ffb3d0; }
+.review-card.featured .review-divider { background: linear-gradient(to right, rgba(255,255,255,0.3), transparent); opacity:1; }
+.review-card.featured .review-quote-icon { color: rgba(255,255,255,0.3); opacity:1; }
+.review-card.featured .review-verified { background: rgba(255,255,255,0.1); color: #7fff9e; }
+.review-card.featured .star { color: #ffdd57; }
+
+/* PERKS BAR */
+.perks {
+  display: flex;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.perk {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 5%;
+  border-right: 1px solid rgba(0,0,0,0.06);
+}
+.perk:last-child { border-right: none; }
+.perk-icon { font-size: 24px; }
+.perk-text h4 { font-size: 13px; font-weight: 700; color: var(--dark); }
+.perk-text p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ══════════════════════════════
+   SHOP PAGE
+══════════════════════════════ */
+.shop-top {
+  padding: 100px 6% 36px;
+  background: linear-gradient(135deg, #fff5f8, #fce8f0);
+  text-align: center;
+}
+.shop-top h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 58px);
+  color: var(--dark);
+}
+.shop-top p { color: var(--muted); margin-top: 8px; }
+
+.filter-bar {
+  padding: 28px 6% 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.filt {
+  padding: 11px 28px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(232,53,122,0.18);
+  background: white;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.filt:hover { border-color: var(--pink); color: var(--pink); }
+.filt.on { background: var(--pink); color: white; border-color: var(--pink); box-shadow: 0 6px 18px rgba(232,53,122,0.3); }
+
+.shop-section { padding: 40px 6% 0; }
+.shop-section.hidden { display: none; }
+
+.shop-cat-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: var(--dark);
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--light);
+  margin-bottom: 24px;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+  padding-bottom: 50px;
+}
+
+/* ══════════════════════════════
+   ABOUT PAGE
+══════════════════════════════ */
+.about-top {
+  padding: 140px 6% 70px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff5f8, #fce8f0);
+}
+.about-top h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 66px);
+  color: var(--dark);
+}
+.about-top h1 em { font-style: italic; color: var(--pink); }
+.about-top p {
+  margin: 18px auto 0; max-width: 620px;
+  font-size: 16px; color: var(--muted); line-height: 1.8;
+}
+
+.about-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 70px 6%;
+}
+.acard {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 20px;
+  padding: 44px;
+  transition: 0.35s;
+}
+.acard:hover { transform: translateY(-6px); box-shadow: 0 16px 44px rgba(232,53,122,0.1); border-color: var(--border); }
+.acard h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--pink); margin-bottom: 14px; }
+.acard p { color: var(--muted); line-height: 1.8; font-size: 15px; }
+
+.values-section { padding: 0 6% 70px; }
+.vals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.vcard {
+  background: var(--light);
+  border-radius: 16px;
+  padding: 30px 20px;
+  transition: 0.3s;
+}
+.vcard:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(232,53,122,0.12); }
+.vcard h4 { font-size: 15px; font-weight: 700; color: var(--pink); margin-bottom: 8px; }
+.vcard p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.about-cta {
+  padding: 70px 6%;
+  background: linear-gradient(135deg, var(--dark), #3d0022);
+  text-align: center;
+}
+.about-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 44px);
+  color: white;
+  margin-bottom: 14px;
+}
+.about-cta p { color: rgba(255,255,255,0.55); font-size: 15px; margin-bottom: 30px; }
+
+/* ══════════════════════════════
+   CONTACT PAGE
+══════════════════════════════ */
+.contact-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 5% 60px;
+  background: linear-gradient(135deg, #fff5f8, #fce8f0);
+}
+.contact-box {
+  background: white;
+  border-radius: 24px;
+  padding: 52px 48px;
+  width: 100%;
+  max-width: 840px;
+  box-shadow: 0 20px 60px rgba(232,53,122,0.1);
+  border: 1px solid var(--border);
+}
+.contact-box h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 42px);
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.contact-box h1 em { font-style: italic; color: var(--pink); }
+.contact-sub { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-field input, .form-field textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--dark);
+  background: #fafafa;
+  outline: none;
+  transition: 0.25s;
+}
+.form-field input:focus, .form-field textarea:focus {
+  border-color: var(--pink);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(232,53,122,0.08);
+}
+.form-field textarea { height: 120px; resize: none; width: 100%; display: block; }
+.form-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 14px;
+}
+.form-submit:hover { background: var(--deep); transform: translateY(-2px); }
+.success-msg {
+  display: none;
+  text-align: center;
+  margin-top: 16px;
+  color: #18a058;
+  font-weight: 600;
+  font-size: 15px;
+}
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 32px;
+}
+.ci-card {
+  background: var(--light);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+.ci-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.ci-card .ci-icon { font-size: 22px; margin-bottom: 8px; }
+.ci-card h4 { font-size: 13px; font-weight: 700; color: var(--deep); margin-bottom: 4px; }
+.ci-card p { font-size: 12px; color: var(--muted); }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer {
+  background: var(--dark);
+  padding: 40px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.f-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: #f9c6d8;
+}
+.f-links { display: flex; gap: 24px; }
+.f-links button {
+  background: none; border: none;
+  color: rgba(255,255,255,0.45);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.f-links button:hover { color: white; }
+.f-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 28px; right: 28px; z-index: 9999;
+  background: var(--dark);
+  color: white;
+  padding: 13px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: 0.35s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:960px) {
+  .cat-grid { grid-template-columns: repeat(2,1fr); }
+  .bs-section .prod-grid { grid-template-columns: repeat(2,1fr); }
+  .vals-grid { grid-template-columns: repeat(2,1fr); }
+  .about-cards { grid-template-columns: 1fr; }
+  .hero { flex-direction: column; padding-top: 90px; }
+  .hero-right { display: none; }
+  .promo { flex-direction: column; gap: 24px; text-align: center; }
+  .perks { flex-wrap: wrap; }
+  .perk { min-width: 50%; }
+  .reviews-grid { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:600px) {
+  .cat-grid { grid-template-columns: repeat(2,1fr); }
+  .cat-card { height: 300px; }
+  .shop-grid { grid-template-columns: repeat(2,1fr); }
+  .vals-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-info { grid-template-columns: 1fr; }
+  .nav-link { display: none; }
+  .footer { flex-direction: column; gap: 16px; text-align: center; }
+  .contact-box { padding: 28px 18px; }
+  .bs-section .prod-grid { grid-template-columns: repeat(2,1fr); }
+  .reviews-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="logo" onclick="go('home')">Glamify</div>
+  <div class="nav-menu">
+    <button class="nav-link active" id="nl-home" onclick="go('home')">Home</button>
+    <button class="nav-link" id="nl-shop" onclick="go('shop')">Shop</button>
+    <button class="nav-link" id="nl-about" onclick="go('about')">About</button>
+    <button class="nav-link" id="nl-contact" onclick="go('contact')">Contact</button>
+    <button class="nav-cta" onclick="go('shop')">Shop Now ✨</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<div id="p-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-circle hbc1"></div>
+    <div class="hero-bg-circle hbc2"></div>
+
+    <div class="hero-content">
+      <div class="hero-tag"><span class="pulse-dot"></span> New Collection 2026</div>
+      <h1>
+        Your Glow,<br>Your <em>Era.</em>
+        <span>Luxury beauty for women who own every room.</span>
+      </h1>
+      <p class="hero-desc">500+ premium beauty products — makeup, skincare, haircare & fragrance. Cruelty-free. Radiant. Unapologetically you.</p>
+      <div class="hero-btns">
+        <button class="btn-filled" onclick="go('shop')">Explore Products 💎</button>
+        <button class="btn-outline" onclick="go('about')">Our Story</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">500+</div><div class="stat-label">Products</div></div>
+        <div><div class="stat-num">4.9★</div><div class="stat-label">Avg Rating</div></div>
+        <div><div class="stat-num">2L+</div><div class="stat-label">Customers</div></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80" alt="Glamify">
+      <div class="float-pill f1">
+        <div class="fp-label">Best Seller</div>
+        <div class="fp-val">Rose Serum</div>
+        <div class="fp-sub">⭐ 4.9 · 2,400 reviews</div>
+      </div>
+      <div class="float-pill f2">
+        <div class="fp-label">Today's Offer</div>
+        <div class="fp-val">30% OFF</div>
+        <div class="fp-sub">All Skincare →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>✦ MAKEUP</span><span>✦ SKINCARE</span><span>✦ HAIRCARE</span>
+      <span>✦ FRAGRANCE</span><span>✦ CRUELTY FREE</span><span>✦ NEW ARRIVALS</span>
+      <span>✦ GLAMIFY 2026</span><span>✦ LUXURY BEAUTY</span>
+      <span>✦ MAKEUP</span><span>✦ SKINCARE</span><span>✦ HAIRCARE</span>
+      <span>✦ FRAGRANCE</span><span>✦ CRUELTY FREE</span><span>✦ NEW ARRIVALS</span>
+      <span>✦ GLAMIFY 2026</span><span>✦ LUXURY BEAUTY</span>
+    </div>
+  </div>
+
+  <!-- CATEGORIES — REDESIGNED -->
+  <section class="section" style="background:#fff;">
+    <div class="section-header">
+      <div class="section-eyebrow">Shop by Category</div>
+      <h2 class="section-title">The <em>Vault</em></h2>
+    </div>
+    <div class="cat-grid">
+
+      <div class="cat-card" onclick="go('shop');filterCat('makeup')">
+        <div class="cat-num">01</div>
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=85" alt="Makeup">
+        <div class="cat-overlay">
+          <div class="cat-tag">✨ 16 Products</div>
+          <h3>🌸 Makeup</h3>
+          <p>Foundations, lips, eyes & more</p>
+          <button class="cat-btn">Explore Makeup →</button>
+        </div>
+      </div>
+
+      <div class="cat-card" onclick="go('shop');filterCat('skincare')">
+        <div class="cat-num">02</div>
+        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=85" alt="Skincare">
+        <div class="cat-overlay">
+          <div class="cat-tag">🔥 16 Products</div>
+          <h3>✨ Skincare</h3>
+          <p>Serums, moisturisers & more</p>
+          <button class="cat-btn">Explore Skincare →</button>
+        </div>
+      </div>
+
+      <div class="cat-card" onclick="go('shop');filterCat('haircare')">
+        <div class="cat-num">03</div>
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=85" alt="Haircare">
+        <div class="cat-overlay">
+          <div class="cat-tag">💇 16 Products</div>
+          <h3>💇‍♀️ Haircare</h3>
+          <p>Oils, serums, masks & more</p>
+          <button class="cat-btn">Explore Haircare →</button>
+        </div>
+      </div>
+
+      <div class="cat-card" onclick="go('shop');filterCat('fragrance')">
+        <div class="cat-num">04</div>
+        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&q=85" alt="Fragrance">
+        <div class="cat-overlay">
+          <div class="cat-tag">🌙 16 Products</div>
+          <h3>🌙 Fragrance</h3>
+          <p>EDPs, attars & body mists</p>
+          <button class="cat-btn">Explore Fragrance →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BESTSELLERS -->
+  <section class="bs-section">
+    <div class="section-header">
+      <div class="section-eyebrow">Most Loved</div>
+      <h2 class="section-title"><em>Bestsellers</em></h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <span class="prod-badge badge-hot">🔥 Hot</span>
+        <div class="prod-img"><img src="https://i.pinimg.com/originals/b4/b4/b1/b4b4b10f8eb1da07a2f1f3e562755433.jpg" alt="Lipstick"></div>
+        <div class="prod-body">
+          <div class="prod-cat">Makeup</div>
+          <div class="prod-name">Velvet Matte Lipstick</div>
+          <div class="prod-desc">Long-lasting, rich colour</div>
+          <div class="prod-price-row"><span class="prod-price">₹299</span><span class="prod-old">₹499</span></div>
+          <button class="add-btn" onclick="cart('Velvet Matte Lipstick')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <span class="prod-badge badge-new">New</span>
+        <div class="prod-img"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400" alt="Moisturiser"></div>
+        <div class="prod-body">
+          <div class="prod-cat">Skincare</div>
+          <div class="prod-name">Glow Moisturiser</div>
+          <div class="prod-desc">48hr deep hydration</div>
+          <div class="prod-price-row"><span class="prod-price">₹799</span><span class="prod-old">₹1,200</span></div>
+          <button class="add-btn" onclick="cart('Glow Moisturiser')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <span class="prod-badge badge-luxe">💎 Luxe</span>
+        <div class="prod-img"><img src="https://fimgs.net/images/perfume/social.8747.jpg" alt="Diva"></div>
+        <div class="prod-body">
+          <div class="prod-cat">Fragrance</div>
+          <div class="prod-name">Diva Eau de Parfum</div>
+          <div class="prod-desc">Bold saffron & rose attar</div>
+          <div class="prod-price-row"><span class="prod-price">₹1,999</span><span class="prod-old">₹2,800</span></div>
+          <button class="add-btn" onclick="cart('Diva EDP')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <span class="prod-badge badge-new">New</span>
+        <div class="prod-img"><img src="https://aadhunikayurveda.com/builder/img/blog/Private-Label-Onion-Hair-Serum-manufacturer.jpg" alt="Serum"></div>
+        <div class="prod-body">
+          <div class="prod-cat">Haircare</div>
+          <div class="prod-name">Onion Hair Serum</div>
+          <div class="prod-desc">Anti-hairfall growth booster</div>
+          <div class="prod-price-row"><span class="prod-price">₹1,299</span><span class="prod-old">₹1,999</span></div>
+          <button class="add-btn" onclick="cart('Onion Hair Serum')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO -->
+  <div class="promo">
+    <div class="promo-text">
+      <h2>Get <em>30% Off</em><br>Your First Order</h2>
+      <p>Use code at checkout</p>
+      <span class="promo-code">GLAMIFY30</span>
+    </div>
+    <button class="promo-btn" onclick="go('shop')">Shop Now →</button>
+  </div>
+
+  <!-- ══ REVIEWS SECTION ══ -->
+  <section class="reviews-section">
+    <div class="section-header">
+      <div class="section-eyebrow">Customer Love</div>
+      <h2 class="section-title">What They're <em>Saying</em></h2>
+    </div>
+
+    <div class="reviews-grid">
+
+      <!-- Review 1 — Featured dark card -->
+      <div class="review-card featured">
+        <span class="review-quote-icon">"</span>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">The Diva EDP is absolutely divine — I get compliments every single time I wear it. The saffron and rose blend is so unique and long-lasting. Glamify has completely ruined other brands for me!</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <div class="review-avatar-placeholder">P</div>
+          <div>
+            <div class="review-name">Priya Sharma</div>
+            <div class="review-product">Diva Eau de Parfum</div>
+          </div>
+          <div class="review-verified">✓ Verified</div>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card">
+        <span class="review-quote-icon">"</span>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">I've tried so many moisturisers but the Glow Moisturiser is on a whole other level. My skin looks hydrated and plump all day. 100% repurchasing and gifting to my sister too!</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <div class="review-avatar-placeholder">A</div>
+          <div>
+            <div class="review-name">Ananya Mehta</div>
+            <div class="review-product">Glow Moisturiser</div>
+          </div>
+          <div class="review-verified">✓ Verified</div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card">
+        <span class="review-quote-icon">"</span>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">The Velvet Matte Lipstick stays on the entire day without drying out my lips. The shade range is gorgeous and the packaging feels so luxurious. Worth every rupee!</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <div class="review-avatar-placeholder">R</div>
+          <div>
+            <div class="review-name">Ritu Kapoor</div>
+            <div class="review-product">Velvet Matte Lipstick</div>
+          </div>
+          <div class="review-verified">✓ Verified</div>
+        </div>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="review-card">
+        <span class="review-quote-icon">"</span>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">Ordered the Onion Hair Serum after years of hairfall struggles. Within 3 weeks I can already see baby hairs growing back. Delivery was super fast and packaging was beautiful!</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <div class="review-avatar-placeholder">S</div>
+          <div>
+            <div class="review-name">Simran Kaur</div>
+            <div class="review-product">Onion Hair Serum</div>
+          </div>
+          <div class="review-verified">✓ Verified</div>
+        </div>
+      </div>
+
+      <!-- Review 5 -->
+      <div class="review-card">
+        <span class="review-quote-icon">"</span>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">The Vitamin C Serum has transformed my skin in just a month — dark spots faded, skin tone evened out. I was sceptical at first but now I recommend Glamify to everyone!</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <div class="review-avatar-placeholder">N</div>
+          <div>
+            <div class="review-name">Neha Joshi</div>
+            <div class="review-product">Vitamin C Serum</div>
+          </div>
+          <div class="review-verified">✓ Verified</div>
+        </div>
+      </div>
+
+      <!-- Review 6 — Featured dark card -->
+      <div class="review-card featured">
+        <span class="review-quote-icon">"</span>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">Glamify is genuinely luxury at an affordable price. The Pro Brush Set is silky smooth and applies makeup so flawlessly. I feel like a professional MUA every single morning. Pure love!</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <div class="review-avatar-placeholder">D</div>
+          <div>
+            <div class="review-name">Deepika Rao</div>
+            <div class="review-product">Pro Brush Set</div>
+          </div>
+          <div class="review-verified">✓ Verified</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PERKS -->
+  <div class="perks">
+    <div class="perk"><div class="perk-icon">🚚</div><div class="perk-text"><h4>Free Delivery</h4><p>On orders above ₹799</p></div></div>
+    <div class="perk"><div class="perk-icon">✅</div><div class="perk-text"><h4>100% Authentic</h4><p>Genuine luxury products</p></div></div>
+    <div class="perk"><div class="perk-icon">🌿</div><div class="perk-text"><h4>Cruelty Free</h4><p>Ethical & sustainable</p></div></div>
+    <div class="perk"><div class="perk-icon">↩️</div><div class="perk-text"><h4>Easy Returns</h4><p>7-day hassle-free</p></div></div>
+    <div class="perk"><div class="perk-icon">🔒</div><div class="perk-text"><h4>Secure Payment</h4><p>100% safe checkout</p></div></div>
+  </div>
+
+  <footer>
+    <div class="f-logo">Glamify</div>
+    <div class="f-links">
+      <button onclick="go('home')">Home</button>
+      <button onclick="go('shop')">Shop</button>
+      <button onclick="go('about')">About</button>
+      <button onclick="go('contact')">Contact</button>
+    </div>
+    <div class="f-copy">© 2026 Glamify Beauty ✨</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     SHOP PAGE
+══════════════════════════════════════ -->
+<div id="p-shop" class="page">
+  <div class="shop-top">
+    <h1>The Glamify Vault 💎</h1>
+    <p>Luxury beauty, curated for every era of you</p>
+  </div>
+
+  <!-- "All Products" button removed — only category filters remain -->
+  <div class="filter-bar">
+    <button class="filt on" id="filt-makeup" onclick="filterCat('makeup',this)">🌸 Makeup</button>
+    <button class="filt" id="filt-skincare" onclick="filterCat('skincare',this)">✨ Skincare</button>
+    <button class="filt" id="filt-haircare" onclick="filterCat('haircare',this)">💇‍♀️ Haircare</button>
+    <button class="filt" id="filt-fragrance" onclick="filterCat('fragrance',this)">🌙 Fragrance</button>
+  </div>
+
+  <!-- ── MAKEUP ── -->
+  <div class="shop-section" id="ss-makeup">
+    <div style="padding:30px 6% 0 6%"><div class="shop-cat-title">🌸 Makeup</div></div>
+    <div class="shop-grid" style="padding:0 6% 40px">
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://i.pinimg.com/474x/e8/6f/d7/e86fd7d5c89b72ada65192e3b19b6bae.jpg" alt="Foundation"></div><div class="prod-body"><div class="prod-name">HD Foundation</div><div class="prod-desc">Full coverage, 24hr wear</div><div class="prod-price-row"><span class="prod-price">₹899</span><span class="prod-old">₹1,299</span></div><button class="add-btn" onclick="cart('HD Foundation')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPvy1bt4Ky-hC7fDpVcVYLm7jsY1giJRU2SQ&s" alt="Pencil"></div><div class="prod-body"><div class="prod-name">Dual-ended Pencil</div><div class="prod-desc">Liner & brow perfector</div><div class="prod-price-row"><span class="prod-price">₹599</span></div><button class="add-btn" onclick="cart('Dual-ended Pencil')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://media.istockphoto.com/id/1370468785/photo/a-nude-eyeshadow-palette-and-makeup-artists-tools-on-a-marble-vanity-brushes-for-powder-blush.jpg?s=612x612&w=0&k=20&c=8K-VjKOtdomupO_HDwhOmVe3KNKGwquUVMzq9bbLi7Q=" alt="Eyeshadow"></div><div class="prod-body"><div class="prod-name">Nude Eyeshadow Palette</div><div class="prod-desc">18 blendable shades</div><div class="prod-price-row"><span class="prod-price">₹399</span><span class="prod-old">₹699</span></div><button class="add-btn" onclick="cart('Eyeshadow Palette')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://i.pinimg.com/originals/b4/b4/b1/b4b4b10f8eb1da07a2f1f3e562755433.jpg" alt="Lipstick"></div><div class="prod-body"><div class="prod-name">Velvet Matte Lipstick</div><div class="prod-desc">Long-lasting rich colour</div><div class="prod-price-row"><span class="prod-price">₹299</span><span class="prod-old">₹499</span></div><button class="add-btn" onclick="cart('Velvet Matte Lipstick')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1631214524020-3c69b7a896c0?w=400" alt="Blush"></div><div class="prod-body"><div class="prod-name">Glow Blush</div><div class="prod-desc">Buildable peachy blush</div><div class="prod-price-row"><span class="prod-price">₹349</span></div><button class="add-btn" onclick="cart('Glow Blush')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1583241800698-e8ab01832a8b?w=400" alt="Highlighter"></div><div class="prod-body"><div class="prod-name">Diamond Highlighter</div><div class="prod-desc">Blinding shimmer finish</div><div class="prod-price-row"><span class="prod-price">₹449</span><span class="prod-old">₹699</span></div><button class="add-btn" onclick="cart('Diamond Highlighter')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400" alt="Concealer"></div><div class="prod-body"><div class="prod-name">Full Cover Concealer</div><div class="prod-desc">Hides dark circles instantly</div><div class="prod-price-row"><span class="prod-price">₹499</span></div><button class="add-btn" onclick="cart('Full Cover Concealer')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=400" alt="Mascara"></div><div class="prod-body"><div class="prod-name">Lash Boss Mascara</div><div class="prod-desc">Volumising & curling</div><div class="prod-price-row"><span class="prod-price">₹399</span><span class="prod-old">₹599</span></div><button class="add-btn" onclick="cart('Lash Boss Mascara')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1567961861361-a3e0b745b07e?w=400" alt="Setting Spray"></div><div class="prod-body"><div class="prod-name">Setting Spray</div><div class="prod-desc">Lock makeup all day</div><div class="prod-price-row"><span class="prod-price">₹649</span></div><button class="add-btn" onclick="cart('Setting Spray')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1571781565036-d3f759be73e4?w=400" alt="Lip Gloss"></div><div class="prod-body"><div class="prod-name">Crystal Lip Gloss</div><div class="prod-desc">Plumping glossy finish</div><div class="prod-price-row"><span class="prod-price">₹249</span></div><button class="add-btn" onclick="cart('Crystal Lip Gloss')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400" alt="Brush Set"></div><div class="prod-body"><div class="prod-name">Pro Brush Set</div><div class="prod-desc">12-piece professional kit</div><div class="prod-price-row"><span class="prod-price">₹1,299</span><span class="prod-old">₹1,999</span></div><button class="add-btn" onclick="cart('Pro Brush Set')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" alt="Contour Kit"></div><div class="prod-body"><div class="prod-name">Sculpt & Contour Kit</div><div class="prod-desc">Defines & highlights</div><div class="prod-price-row"><span class="prod-price">₹799</span><span class="prod-old">₹1,199</span></div><button class="add-btn" onclick="cart('Sculpt Contour Kit')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1625093904471-3f2e247a7e5f?w=400" alt="Tinted Moisturiser"></div><div class="prod-body"><div class="prod-name">Tinted Moisturiser</div><div class="prod-desc">Sheer coverage + SPF 30</div><div class="prod-price-row"><span class="prod-price">₹699</span></div><button class="add-btn" onclick="cart('Tinted Moisturiser')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1619451334792-150fd785ee74?w=400" alt="Primer"></div><div class="prod-body"><div class="prod-name">Pore Minimising Primer</div><div class="prod-desc">Smooth skin for flawless base</div><div class="prod-price-row"><span class="prod-price">₹549</span><span class="prod-old">₹799</span></div><button class="add-btn" onclick="cart('Pore Minimising Primer')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=400" alt="Lip Liner"></div><div class="prod-body"><div class="prod-name">Precision Lip Liner</div><div class="prod-desc">Define & fill with ease</div><div class="prod-price-row"><span class="prod-price">₹199</span><span class="prod-old">₹349</span></div><button class="add-btn" onclick="cart('Precision Lip Liner')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1586495777744-4e6232bf2e56?w=400" alt="Brow Gel"></div><div class="prod-body"><div class="prod-name">Tinted Brow Gel</div><div class="prod-desc">Defined bold brows all day</div><div class="prod-price-row"><span class="prod-price">₹329</span></div><button class="add-btn" onclick="cart('Tinted Brow Gel')">Add to Cart</button></div></div>
+    </div>
+  </div>
+
+  <!-- ── SKINCARE ── -->
+  <div class="shop-section hidden" id="ss-skincare">
+    <div style="padding:30px 6% 0 6%"><div class="shop-cat-title">✨ Skincare</div></div>
+    <div class="shop-grid" style="padding:0 6% 40px">
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400" alt="Serum"></div><div class="prod-body"><div class="prod-name">Vitamin C Serum</div><div class="prod-desc">Brightens & evens skin tone</div><div class="prod-price-row"><span class="prod-price">₹1,199</span><span class="prod-old">₹1,699</span></div><button class="add-btn" onclick="cart('Vitamin C Serum')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400" alt="Moisturiser"></div><div class="prod-body"><div class="prod-name">Glow Moisturiser</div><div class="prod-desc">48hr hydration boost</div><div class="prod-price-row"><span class="prod-price">₹799</span><span class="prod-old">₹1,200</span></div><button class="add-btn" onclick="cart('Glow Moisturiser')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400" alt="Face Mask"></div><div class="prod-body"><div class="prod-name">Rose Clay Mask</div><div class="prod-desc">Detox & deep cleanse</div><div class="prod-price-row"><span class="prod-price">₹499</span></div><button class="add-btn" onclick="cart('Rose Clay Mask')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400" alt="Toner"></div><div class="prod-body"><div class="prod-name">Hydrating Toner</div><div class="prod-desc">Balances & preps skin</div><div class="prod-price-row"><span class="prod-price">₹649</span></div><button class="add-btn" onclick="cart('Hydrating Toner')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=400" alt="Eye Cream"></div><div class="prod-body"><div class="prod-name">Retinol Eye Cream</div><div class="prod-desc">Reduces dark circles & puffiness</div><div class="prod-price-row"><span class="prod-price">₹899</span><span class="prod-old">₹1,299</span></div><button class="add-btn" onclick="cart('Retinol Eye Cream')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1643185539104-3622eb1f2f5b?w=400" alt="SPF"></div><div class="prod-body"><div class="prod-name">SPF 60 Sunscreen</div><div class="prod-desc">Lightweight PA++++ protection</div><div class="prod-price-row"><span class="prod-price">₹549</span></div><button class="add-btn" onclick="cart('SPF 60 Sunscreen')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400" alt="Exfoliator"></div><div class="prod-body"><div class="prod-name">AHA BHA Exfoliator</div><div class="prod-desc">Smooth & refine texture</div><div class="prod-price-row"><span class="prod-price">₹749</span><span class="prod-old">₹999</span></div><button class="add-btn" onclick="cart('AHA BHA Exfoliator')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=400" alt="Face Mist"></div><div class="prod-body"><div class="prod-name">Rose Water Face Mist</div><div class="prod-desc">Refresh & soothe anytime</div><div class="prod-price-row"><span class="prod-price">₹349</span></div><button class="add-btn" onclick="cart('Rose Water Mist')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400" alt="Sheet Mask"></div><div class="prod-body"><div class="prod-name">Gold Sheet Mask</div><div class="prod-desc">24K glow in 20 mins</div><div class="prod-price-row"><span class="prod-price">₹199</span></div><button class="add-btn" onclick="cart('Gold Sheet Mask')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400" alt="Night Cream"></div><div class="prod-body"><div class="prod-name">Repair Night Cream</div><div class="prod-desc">Nourish while you sleep</div><div class="prod-price-row"><span class="prod-price">₹1,099</span><span class="prod-old">₹1,499</span></div><button class="add-btn" onclick="cart('Repair Night Cream')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400" alt="Lip Balm"></div><div class="prod-body"><div class="prod-name">Tinted Lip Balm SPF</div><div class="prod-desc">Colour + sun protection</div><div class="prod-price-row"><span class="prod-price">₹249</span></div><button class="add-btn" onclick="cart('Tinted Lip Balm')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400" alt="Face Oil"></div><div class="prod-body"><div class="prod-name">Bakuchiol Face Oil</div><div class="prod-desc">Natural retinol alternative</div><div class="prod-price-row"><span class="prod-price">₹1,399</span><span class="prod-old">₹1,999</span></div><button class="add-btn" onclick="cart('Bakuchiol Face Oil')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1570554520913-ce2ba9e4c98a?w=400" alt="Niacinamide"></div><div class="prod-body"><div class="prod-name">10% Niacinamide Serum</div><div class="prod-desc">Minimises pores & dark spots</div><div class="prod-price-row"><span class="prod-price">₹849</span><span class="prod-old">₹1,199</span></div><button class="add-btn" onclick="cart('Niacinamide Serum')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228852-80b6e5eeff06?w=400" alt="Micellar Water"></div><div class="prod-body"><div class="prod-name">Micellar Cleansing Water</div><div class="prod-desc">Gentle makeup remover</div><div class="prod-price-row"><span class="prod-price">₹399</span></div><button class="add-btn" onclick="cart('Micellar Cleansing Water')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=400" alt="Under Eye Patches"></div><div class="prod-body"><div class="prod-name">Collagen Eye Patches</div><div class="prod-desc">De-puff & brighten eyes</div><div class="prod-price-row"><span class="prod-price">₹299</span><span class="prod-old">₹449</span></div><button class="add-btn" onclick="cart('Collagen Eye Patches')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228841-a3c527ebefe5?w=400" alt="Peptide Cream"></div><div class="prod-body"><div class="prod-name">Peptide Firming Cream</div><div class="prod-desc">Lifts & tightens skin</div><div class="prod-price-row"><span class="prod-price">₹1,599</span><span class="prod-old">₹2,199</span></div><button class="add-btn" onclick="cart('Peptide Firming Cream')">Add to Cart</button></div></div>
+    </div>
+  </div>
+
+  <!-- ── HAIRCARE ── -->
+  <div class="shop-section hidden" id="ss-haircare">
+    <div style="padding:30px 6% 0 6%"><div class="shop-cat-title">💇‍♀️ Haircare</div></div>
+    <div class="shop-grid" style="padding:0 6% 40px">
+      <div class="prod-card"><div class="prod-img"><img src="https://5.imimg.com/data5/SELLER/Default/2023/11/362845891/AM/KE/VN/3074232/ayurvedic-hair-conditioners-500x500.jpg" alt="Hair Oil"></div><div class="prod-body"><div class="prod-name">Ayurvedic Hair Oil</div><div class="prod-desc">Strengthens roots & reduces hairfall</div><div class="prod-price-row"><span class="prod-price">₹499</span></div><button class="add-btn" onclick="cart('Ayurvedic Hair Oil')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://i.pinimg.com/736x/34/b8/7c/34b87c3f43591dc9656630ca27b46f5d.jpg" alt="Cleansing Duo"></div><div class="prod-body"><div class="prod-name">Cleansing Duo</div><div class="prod-desc">Shampoo + conditioner set</div><div class="prod-price-row"><span class="prod-price">₹1,299</span><span class="prod-old">₹1,799</span></div><button class="add-btn" onclick="cart('Cleansing Duo')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://i.guim.co.uk/img/media/ab3c3ff81bffba525c5a4e197eb7aa93bd96720c/594_0_1678_1680/master/1678.jpg?width=445&dpr=1&s=none&crop=none" alt="Hair Mask"></div><div class="prod-body"><div class="prod-name">Deep Repair Hair Mask</div><div class="prod-desc">Intense moisture treatment</div><div class="prod-price-row"><span class="prod-price">₹899</span><span class="prod-old">₹1,299</span></div><button class="add-btn" onclick="cart('Deep Repair Hair Mask')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://aadhunikayurveda.com/builder/img/blog/Private-Label-Onion-Hair-Serum-manufacturer.jpg" alt="Serum"></div><div class="prod-body"><div class="prod-name">Onion Hair Serum</div><div class="prod-desc">Anti-hairfall growth booster</div><div class="prod-price-row"><span class="prod-price">₹1,999</span><span class="prod-old">₹2,500</span></div><button class="add-btn" onclick="cart('Onion Hair Serum')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400" alt="Heat Protectant"></div><div class="prod-body"><div class="prod-name">Heat Protectant Spray</div><div class="prod-desc">Shield up to 230°C</div><div class="prod-price-row"><span class="prod-price">₹649</span></div><button class="add-btn" onclick="cart('Heat Protectant Spray')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1519735777090-ec97162dc266?w=400" alt="Dry Shampoo"></div><div class="prod-body"><div class="prod-name">Invisible Dry Shampoo</div><div class="prod-desc">Instant refresh, no residue</div><div class="prod-price-row"><span class="prod-price">₹449</span><span class="prod-old">₹699</span></div><button class="add-btn" onclick="cart('Dry Shampoo')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?w=400" alt="Scalp Scrub"></div><div class="prod-body"><div class="prod-name">Scalp Detox Scrub</div><div class="prod-desc">Exfoliates & balances scalp</div><div class="prod-price-row"><span class="prod-price">₹749</span></div><button class="add-btn" onclick="cart('Scalp Detox Scrub')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1617401592946-0b79b4a17c08?w=400" alt="Leave-in"></div><div class="prod-body"><div class="prod-name">Leave-in Conditioner</div><div class="prod-desc">Frizz control all day</div><div class="prod-price-row"><span class="prod-price">₹549</span><span class="prod-old">₹799</span></div><button class="add-btn" onclick="cart('Leave-in Conditioner')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1571781565036-d3f759be73e4?w=400" alt="Hair Perfume"></div><div class="prod-body"><div class="prod-name">Hair Perfume Mist</div><div class="prod-desc">Fragrant & nourishing</div><div class="prod-price-row"><span class="prod-price">₹399</span></div><button class="add-btn" onclick="cart('Hair Perfume Mist')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400" alt="Protein Pack"></div><div class="prod-body"><div class="prod-name">Keratin Protein Pack</div><div class="prod-desc">Salon-quality at home</div><div class="prod-price-row"><span class="prod-price">₹1,499</span><span class="prod-old">₹2,199</span></div><button class="add-btn" onclick="cart('Keratin Protein Pack')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1561974460-ead9ff2cc3c9?w=400" alt="Shine Gloss"></div><div class="prod-body"><div class="prod-name">Shine Gloss Treatment</div><div class="prod-desc">Mirror-like shine boost</div><div class="prod-price-row"><span class="prod-price">₹849</span></div><button class="add-btn" onclick="cart('Shine Gloss Treatment')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400" alt="Biotin Spray"></div><div class="prod-body"><div class="prod-name">Biotin Growth Spray</div><div class="prod-desc">Stimulates new hair growth</div><div class="prod-price-row"><span class="prod-price">₹999</span><span class="prod-old">₹1,399</span></div><button class="add-btn" onclick="cart('Biotin Growth Spray')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400" alt="Argan Oil"></div><div class="prod-body"><div class="prod-name">Pure Argan Oil</div><div class="prod-desc">Smooths & adds intense shine</div><div class="prod-price-row"><span class="prod-price">₹1,199</span><span class="prod-old">₹1,699</span></div><button class="add-btn" onclick="cart('Pure Argan Oil')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400" alt="Rice Water Shampoo"></div><div class="prod-body"><div class="prod-name">Rice Water Shampoo</div><div class="prod-desc">Strengthens & lengthens</div><div class="prod-price-row"><span class="prod-price">₹599</span></div><button class="add-btn" onclick="cart('Rice Water Shampoo')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228852-80b6e5eeff06?w=400" alt="Castor Oil"></div><div class="prod-body"><div class="prod-name">Black Castor Oil</div><div class="prod-desc">Edge control & thickness</div><div class="prod-price-row"><span class="prod-price">₹699</span><span class="prod-old">₹999</span></div><button class="add-btn" onclick="cart('Black Castor Oil')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=400" alt="Scalp Serum"></div><div class="prod-body"><div class="prod-name">Scalp Revival Serum</div><div class="prod-desc">Nourishes hair follicles</div><div class="prod-price-row"><span class="prod-price">₹1,099</span><span class="prod-old">₹1,499</span></div><button class="add-btn" onclick="cart('Scalp Revival Serum')">Add to Cart</button></div></div>
+    </div>
+  </div>
+
+  <!-- ── FRAGRANCE ── -->
+  <div class="shop-section hidden" id="ss-fragrance">
+    <div style="padding:30px 6% 0 6%"><div class="shop-cat-title">🌙 Fragrance</div></div>
+    <div class="shop-grid" style="padding:0 6% 40px">
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://thumbs.dreamstime.com/b/transparent-glass-bottle-perfume-colourful-background-luxurious-mockup-transparent-glass-bottle-perfume-colourful-326998591.jpg" alt="Soft Girly"></div><div class="prod-body"><div class="prod-name">Soft Girly EDP</div><div class="prod-desc">Sweet florals & vanilla musk</div><div class="prod-price-row"><span class="prod-price">₹499</span></div><button class="add-btn" onclick="cart('Soft Girly EDP')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://img.freepik.com/premium-photo/perfume-bottle-no-logo-realistic-isolated-white-backgroundgenerative-ai_760510-6152.jpg?w=2000" alt="Elegance"></div><div class="prod-body"><div class="prod-name">Elegance EDP</div><div class="prod-desc">White rose & oud accord</div><div class="prod-price-row"><span class="prod-price">₹1,299</span><span class="prod-old">₹1,799</span></div><button class="add-btn" onclick="cart('Elegance EDP')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images8.alphacoders.com/392/392122.jpg" alt="Classy"></div><div class="prod-body"><div class="prod-name">Classy Noir</div><div class="prod-desc">Dark woody amber</div><div class="prod-price-row"><span class="prod-price">₹899</span></div><button class="add-btn" onclick="cart('Classy Noir')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-luxe">💎 Luxe</span><div class="prod-img"><img src="https://fimgs.net/images/perfume/social.8747.jpg" alt="Diva"></div><div class="prod-body"><div class="prod-name">Diva Eau de Parfum</div><div class="prod-desc">Bold saffron & rose attar</div><div class="prod-price-row"><span class="prod-price">₹1,999</span><span class="prod-old">₹2,800</span></div><button class="add-btn" onclick="cart('Diva EDP')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400" alt="Midnight"></div><div class="prod-body"><div class="prod-name">Midnight Bloom</div><div class="prod-desc">Jasmine & patchouli accord</div><div class="prod-price-row"><span class="prod-price">₹1,499</span></div><button class="add-btn" onclick="cart('Midnight Bloom')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1594035911013-43cfb5451888?w=400" alt="Rosé"></div><div class="prod-body"><div class="prod-name">Rosé All Day</div><div class="prod-desc">Peach, rose & pink pepper</div><div class="prod-price-row"><span class="prod-price">₹799</span><span class="prod-old">₹1,199</span></div><button class="add-btn" onclick="cart('Rosé All Day')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=400" alt="Citrus Fresh"></div><div class="prod-body"><div class="prod-name">Citrus Fresh EDT</div><div class="prod-desc">Zesty bergamot & green tea</div><div class="prod-price-row"><span class="prod-price">₹599</span><span class="prod-old">₹899</span></div><button class="add-btn" onclick="cart('Citrus Fresh EDT')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1588776814546-daab30f310ce?w=400" alt="Velvet Oud"></div><div class="prod-body"><div class="prod-name">Velvet Oud Intense</div><div class="prod-desc">Rich oriental accord</div><div class="prod-price-row"><span class="prod-price">₹2,499</span></div><button class="add-btn" onclick="cart('Velvet Oud Intense')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400" alt="Cloud Nine"></div><div class="prod-body"><div class="prod-name">Cloud Nine</div><div class="prod-desc">Dreamy musk & coconut</div><div class="prod-price-row"><span class="prod-price">₹949</span><span class="prod-old">₹1,399</span></div><button class="add-btn" onclick="cart('Cloud Nine')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400" alt="Body Mist"></div><div class="prod-body"><div class="prod-name">Glam Body Mist 250ml</div><div class="prod-desc">All-day freshness</div><div class="prod-price-row"><span class="prod-price">₹399</span></div><button class="add-btn" onclick="cart('Glam Body Mist')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-hot">Hot</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=400" alt="Perfume Oil"></div><div class="prod-body"><div class="prod-name">Arabian Perfume Oil</div><div class="prod-desc">Concentrated long-lasting attar</div><div class="prod-price-row"><span class="prod-price">₹1,699</span><span class="prod-old">₹2,199</span></div><button class="add-btn" onclick="cart('Arabian Perfume Oil')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400" alt="Discovery Set"></div><div class="prod-body"><div class="prod-name">Discovery Mini Set</div><div class="prod-desc">5 bestsellers in travel size</div><div class="prod-price-row"><span class="prod-price">₹1,199</span><span class="prod-old">₹1,999</span></div><button class="add-btn" onclick="cart('Discovery Mini Set')">Add to Cart</button></div></div>
+      <div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400" alt="Cherry Blossom"></div><div class="prod-body"><div class="prod-name">Cherry Blossom</div><div class="prod-desc">Light floral spring scent</div><div class="prod-price-row"><span class="prod-price">₹699</span></div><button class="add-btn" onclick="cart('Cherry Blossom')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-sale">Sale</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1560741940-3b02f00ff4b8?w=400" alt="Vanilla Dream"></div><div class="prod-body"><div class="prod-name">Vanilla Dream EDP</div><div class="prod-desc">Warm sweet gourmand scent</div><div class="prod-price-row"><span class="prod-price">₹1,099</span><span class="prod-old">₹1,599</span></div><button class="add-btn" onclick="cart('Vanilla Dream EDP')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-new">New</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1548781895-aa5d7ccad571?w=400" alt="Aqua Fresh"></div><div class="prod-body"><div class="prod-name">Aqua Marine EDT</div><div class="prod-desc">Cool ocean breeze accord</div><div class="prod-price-row"><span class="prod-price">₹849</span></div><button class="add-btn" onclick="cart('Aqua Marine EDT')">Add to Cart</button></div></div>
+      <div class="prod-card"><span class="prod-badge badge-luxe">💎 Luxe</span><div class="prod-img"><img src="https://images.unsplash.com/photo-1592945403407-5862a3f3a81c?w=400" alt="Oud Rose"></div><div class="prod-body"><div class="prod-name">Oud & Rose Extrait</div><div class="prod-desc">Ultimate luxury oriental blend</div><div class="prod-price-row"><span class="prod-price">₹3,499</span><span class="prod-old">₹4,999</span></div><button class="add-btn" onclick="cart('Oud Rose Extrait')">Add to Cart</button></div></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="f-logo">Glamify</div>
+    <div class="f-links">
+      <button onclick="go('home')">Home</button>
+      <button onclick="go('about')">About</button>
+      <button onclick="go('contact')">Contact</button>
+    </div>
+    <div class="f-copy">© 2026 Glamify Beauty ✨</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════ -->
+<div id="p-about" class="page">
+  <div class="about-top">
+    <h1>About <em>Glamify</em></h1>
+    <p>A luxury beauty house celebrating confidence, femininity and iconic self-expression. Every creation blends premium craftsmanship with modern elegance.</p>
+  </div>
+  <div class="about-cards">
+    <div class="acard"><h3>✨ Our Vision</h3><p>To redefine global beauty standards through timeless glamour, premium formulations and couture-inspired aesthetics. We believe beauty is a language everyone deserves to speak fluently.</p></div>
+    <div class="acard"><h3>💎 Our Craft</h3><p>Each Glamify piece is developed with precision, elegance and uncompromising quality — delivering an elite beauty experience that feels personal, powerful, and unforgettable.</p></div>
+  </div>
+  <section class="values-section">
+    <div class="section-header">
+      <div class="section-eyebrow">Core Philosophy</div>
+      <h2 class="section-title">What We <em>Stand For</em></h2>
+    </div>
+    <div class="vals-grid">
+      <div class="vcard"><h4>🌸 Feminine Strength</h4><p>Empowering confidence through the art and joy of beauty.</p></div>
+      <div class="vcard"><h4>👑 Prestige Quality</h4><p>Luxury without limits — premium in every drop.</p></div>
+      <div class="vcard"><h4>🌿 Conscious Beauty</h4><p>Ethical, cruelty-free, planet-conscious at every step.</p></div>
+      <div class="vcard"><h4>💖 Timeless Elegance</h4><p>Designed to stay iconic, season after season.</p></div>
+    </div>
+  </section>
+  <section class="about-cta">
+    <h2>Ready to Find Your Glow?</h2>
+    <p>Explore 60+ luxury beauty products curated for you.</p>
+    <button class="btn-filled" onclick="go('shop')">Shop the Vault 💎</button>
+  </section>
+  <footer>
+    <div class="f-logo">Glamify</div>
+    <div class="f-links">
+      <button onclick="go('home')">Home</button>
+      <button onclick="go('shop')">Shop</button>
+      <button onclick="go('contact')">Contact</button>
+    </div>
+    <div class="f-copy">© 2026 Glamify Beauty ✨</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════ -->
+<div id="p-contact" class="page">
+  <div class="contact-page">
+    <div class="contact-box">
+      <h1>Contact <em>Glamify</em> 💌</h1>
+      <p class="contact-sub">Connect with our luxury beauty team. We're here to elevate your glam experience.</p>
+      <div class="form-row">
+        <div class="form-field"><input type="text" id="fn" placeholder="Full Name"></div>
+        <div class="form-field"><input type="email" id="fe" placeholder="Email Address"></div>
+      </div>
+      <div class="form-field" style="margin-bottom:0">
+        <textarea id="fm" placeholder="Your Message"></textarea>
+      </div>
+      <button class="form-submit" onclick="sendMsg()">Send Message ✨</button>
+      <p class="success-msg" id="smsg">💖 Message sent! We'll get back to you soon.</p>
+      <div class="contact-info">
+        <div class="ci-card"><div class="ci-icon">📍</div><h4>Location</h4><p>Mumbai, India</p></div>
+        <div class="ci-card"><div class="ci-icon">📞</div><h4>Phone</h4><p>+91 98765 43210</p></div>
+        <div class="ci-card"><div class="ci-icon">📧</div><h4>Email</h4><p>support@glamify.com</p></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="f-logo">Glamify</div>
+    <div class="f-links">
+      <button onclick="go('home')">Home</button>
+      <button onclick="go('shop')">Shop</button>
+      <button onclick="go('about')">About</button>
+    </div>
+    <div class="f-copy">© 2026 Glamify Beauty ✨</div>
+  </footer>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* PAGE NAVIGATION */
+function go(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('p-' + name).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const nl = document.getElementById('nl-' + name);
+  if (nl) nl.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* SHOP FILTER — no "all" option anymore */
+function filterCat(cat, btn) {
+  document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+  if (btn) {
+    btn.classList.add('on');
+  } else {
+    const match = document.getElementById('filt-' + cat);
+    if (match) match.classList.add('on');
+  }
+
+  const cats = ['makeup','skincare','haircare','fragrance'];
+  cats.forEach(c => {
+    const el = document.getElementById('ss-' + c);
+    if (cat === c) el.classList.remove('hidden');
+    else el.classList.add('hidden');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ADD TO CART */
+function cart(name) {
+  const t = document.getElementById('toast');
+  t.textContent = '🛒 ' + name + ' added!';
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* CONTACT FORM */
+function sendMsg() {
+  const n = document.getElementById('fn').value.trim();
+  const e = document.getElementById('fe').value.trim();
+  const m = document.getElementById('fm').value.trim();
+  if (!n || !e || !m) { alert('Please fill in all fields 💕'); return; }
+  document.getElementById('smsg').style.display = 'block';
+  document.getElementById('fn').value = '';
+  document.getElementById('fe').value = '';
+  document.getElementById('fm').value = '';
+}
+</script>
+</body>
+</html>

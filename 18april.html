@@ -1,0 +1,39 @@
+ <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="myform">
+      <input id="inp1" type="text" placeholder="username" />
+      <button type="submit">Submit</button>
+      <p id="message"></p>
+    </form>
+    <script>
+      const para = document.getElementById("message");
+      document
+        .getElementById("myform")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const inp = document.getElementById("inp1").value;
+          console.log(inp, typeof inp);
+
+          const size = inp.length;
+          console.log(size);
+          const regexpass =
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+          const regexemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (regexpass.test(inp)) {
+            para.innerText = "Valid name";
+            para.style.color = "green";
+          } else {
+            para.innerText = "InValid name";
+            para.style.color = "red";
+          }
+        });
+    </script>
+  </body>
+</html> 
